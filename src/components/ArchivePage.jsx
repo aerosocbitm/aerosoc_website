@@ -7,12 +7,10 @@ const ArchivePage = ({ onNavigate }) => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const archiveItems = [
-    { id: 1, title: "EXHIBITION 2025", category: "EVENTS", img: "/gimg1.jpeg", desc: "Annual technical showcase featuring autonomous hexacopters and fixed-wing prototypes." },
-    { id: 2, title: "SKYBREACH 2025", category: "MISSIONS", img: "/gimg2.jpeg", desc: "High-altitude deployment and payload drop accuracy competition." },
-    { id: 3, title: "PROJECT EVALUATION", category: "RESEARCH", img: "/gimg3.jpeg", desc: "Internal airframe structural load testing and CFD telemetry verification." },
-    { id: 4, title: "ALTITUDE ADVENTURE", category: "MISSIONS", img: "/gimg4.jpeg", desc: "Long-range endurance flight testing across varying wind gradients." },
-    { id: 5, title: "AVIONICS BAY V3", category: "RESEARCH", img: "/gimg1.jpeg", desc: "Custom PCB integration with redundant STM32 flight controllers and GPS." },
-    { id: 6, title: "AEROSOC FRESHERS", category: "EVENTS", img: "/gimg2.jpeg", desc: "Introductory aero-modelling workshop and RC glider fly-off." },
+    { id: 1, title: "EXHIBITION 2025", category: "EVENTS", img: "/gimg1.jpeg", desc: "Showcasing our latest builds at the Aircraft Exhibition! Proudly displaying custom-designed aerodynamic models crafted with precision and passion. A huge milestone for our engineering journey, bringing innovation from the workshop straight to the skies. Great moments sharing our aerospace projects with fellow tech enthusiasts and peers." },
+    { id: 2, title: "SKYBREACH 2025", category: "MISSIONS", img: "/gimg2.jpeg", desc: "Another incredible session with the Aerospace Society at BIT Mesra. Seeing so many passionate minds gathered together, exploring rocket designs and reaching for the stars, truly makes all the hard work worth it. So proud to lead and learn alongside this amazing crew of future innovators." },
+    { id: 3, title: "PROJECT EVALUATION", category: "RESEARCH", img: "/gimg3.jpeg", desc: "Rigorous testing and fine-tuning in action during our project evaluation! Analyzing real-time telemetry data and calibrating our custom hardware setup requires absolute precision. Dedicated teamwork and relentless optimization bring every complex mechanical and software integration together, turning innovative design concepts into fully functional engineering realities." },
+    { id: 4, title: "ALTITUDE ADVENTURE", category: "MISSIONS", img: "/gimg4.jpeg", desc: "Witnessing months of meticulous design and testing culminate in this breathtaking moment. The model rocket pierces the sky, leaving a trail of smoke and ambition behind. Nothing matches the adrenaline of seeing hands-on engineering take flight, turning calculated physics and teamwork into pure, soaring reality." },
   ];
 
   const filteredItems = filter === 'ALL' ? archiveItems : archiveItems.filter(item => item.category === filter);
@@ -104,7 +102,6 @@ const ArchivePage = ({ onNavigate }) => {
             className="bg-[#0a0a0a] border border-white/20 rounded-3xl overflow-hidden max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 relative shadow-[0_0_50px_rgba(0,0,0,0.8)]"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Left Side: Image */}
             <div className="w-full aspect-video md:aspect-auto md:h-full bg-black/60 relative overflow-hidden min-h-[250px]">
               <img
                 src={selectedItem.img}

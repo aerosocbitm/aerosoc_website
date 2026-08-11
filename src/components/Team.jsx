@@ -68,7 +68,7 @@ const Team = ({ onNavigate }) => {
   return (
     <section id="team" ref={teamRef} className="min-h-screen py-32 px-8 md:px-24 bg-transparent relative border-t border-white/5 pointer-events-none">      
       <div className="team-header mb-20 text-center pointer-events-auto">
-        <div className="text-4xl md:text-7xl font-display font-black text-white uppercase tracking-tighter">
+        <div className="text-4xl md:text-7xl font-nasa text-white uppercase tracking-tighter">
           Our <span className="text-accent">Crew</span>
         </div>
       </div>
@@ -128,7 +128,7 @@ const Team = ({ onNavigate }) => {
           }}
           className="px-6 py-3 border-2 border-white/20 text-white hover:border-accent hover:text-accent hover:bg-accent/10 font-display font-bold text-sm tracking-widest transition-all duration-300 cursor-pointer pointer-events-auto"
         >
-          VIEW ENTIRE ROSTER
+          VIEW ENTIRE TEAM
         </button>
       </div>
     </section>

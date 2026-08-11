@@ -83,71 +83,71 @@ const Loader = ({ onFlash, onWipeComplete, onComplete }) => {
 
   return (
     <div ref={containerRef} className="fixed top-0 left-0 w-full h-[100svh] z-[9999] pointer-events-none overflow-hidden">
+      
       <div 
         ref={darkBgRef} 
-        className="absolute inset-0 w-full h-full z-20 pointer-events-auto bg-[#111114]"
-        style={{
-          backgroundImage: `
-            radial-gradient(circle at 68% 42%, #2a2a30 0%, #18181d 38%, #0e0e11 80%),
-            linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px)
-          `,
-          backgroundSize: 'cover, 100px 100px, 100px 100px'
-        }}
+        className="absolute inset-0 w-full h-full z-20 pointer-events-auto bg-gradient-to-br from-[#1a1a24] via-[#0a0a0a] to-[#050505]"
       >
         <svg 
-          className="w-full h-full object-cover opacity-45" 
-          viewBox="0 0 1440 900" 
+          className="w-full h-full object-cover opacity-80" 
+          viewBox="0 0 1920 1080" 
           fill="none" 
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns="http://www.w3.org/2000/svg" 
           preserveAspectRatio="xMidYMid slice"
-          style={{
-            maskImage: 'radial-gradient(circle at 68% 42%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 45%, rgba(0,0,0,0) 85%)',
-            WebkitMaskImage: 'radial-gradient(circle at 68% 42%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 45%, rgba(0,0,0,0) 85%)'
-          }}
         >
-          <g stroke="white" strokeWidth="0.6" strokeOpacity="0.22" fill="none">
-            <path d="M-150,150 C100,80 350,220 600,180 C850,140 1100,50 1500,120" />
-            <path d="M-150,210 C120,140 370,280 620,240 C870,200 1120,110 1500,180" />
-            <path d="M-150,270 C140,200 390,340 640,300 C890,260 1140,170 1500,240" />
-            <path d="M-150,330 C160,260 410,400 660,360 C910,320 1160,230 1500,300" />
-            <path d="M-150,390 C180,320 430,460 680,420 C930,380 1180,290 1500,360" />
-            <path d="M-150,450 C200,380 450,520 700,480 C950,440 1200,350 1500,420" />
-            <path d="M-150,510 C220,440 470,580 720,540 C970,500 1220,410 1500,480" />
-            <path d="M-150,570 C240,500 490,640 740,600 C990,560 1240,470 1500,540" />
-            <path d="M-150,630 C260,560 510,700 760,660 C1010,620 1260,530 1500,600" />
-            <path d="M-150,690 C280,620 530,760 780,720 C1030,680 1280,590 1500,660" />
-            <path d="M-150,750 C300,680 550,820 800,780 C1050,740 1300,650 1500,720" />
-            <path d="M-150,810 C320,740 570,880 820,840 C1070,800 1320,710 1500,780" />
-            <path d="M-150,870 C340,800 590,940 840,900 C1090,860 1340,770 1500,840" />
+          <defs>
+            <filter id="cyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="12" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
 
-            <path d="M350,-100 C500,150 750,250 900,500 C1050,750 950,950 1200,1050" />
-            <path d="M410,-100 C560,150 810,250 960,500 C1110,750 1010,950 1260,1050" />
-            <path d="M470,-100 C620,150 870,250 1020,500 C1170,750 1070,950 1320,1050" />
-            <path d="M530,-100 C680,150 930,250 1080,500 C1230,750 1130,950 1380,1050" />
-            <path d="M590,-100 C740,150 990,250 1140,500 C1290,750 1190,950 1440,1050" />
-            <path d="M650,-100 C800,150 1050,250 1200,500 C1350,750 1250,950 1500,1050" />
+          {/* Faint Background Waves */}
+          <path d="M-100 200 C 400 100, 1000 600, 2020 300" stroke="rgba(255,255,255,0.03)" strokeWidth="2" />
+          <path d="M-100 800 C 500 900, 1200 400, 2020 800" stroke="rgba(255,255,255,0.03)" strokeWidth="2" />
+          <path d="M-100 1000 C 300 800, 800 1100, 1500 900" stroke="rgba(255,255,255,0.03)" strokeWidth="2" />
 
-            <path d="M800,320 C870,300 950,340 970,410 C990,480 930,550 860,560 C790,570 730,510 740,440 C750,370 800,320 800,320 Z" />
-            <path d="M800,280 C890,250 990,300 1020,390 C1050,480 970,580 880,600 C790,620 700,540 690,450 C680,360 750,290 800,280 Z" />
-            <path d="M800,240 C920,200 1040,260 1080,370 C1120,480 1020,620 900,640 C780,660 660,560 640,450 C620,340 710,250 800,240 Z" />
-            <path d="M800,200 C950,150 1090,220 1140,350 C1190,480 1070,660 920,680 C770,700 620,580 590,450 C560,320 670,210 800,200 Z" />
+          {/* Left Circuit Traces */}
+          <g stroke="rgba(255, 255, 255, 0.12)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            {/* Top Trace */}
+            <path d="M-50 450 H 300 L 400 550 H 800" />
+            <circle cx="800" cy="550" r="8" fill="transparent" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="3" />
+
+            {/* Middle Trace */}
+            <path d="M-50 520 H 200 L 300 620 H 700" />
+            <circle cx="700" cy="620" r="8" fill="transparent" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="3" />
+
+            {/* Bottom Trace with Cyan Glowing Node */}
+            <path d="M-50 590 H 400 L 450 640 H 600 L 650 690 H 850" />
+            <circle cx="850" cy="690" r="9" fill="#00d2ff" stroke="none" filter="url(#cyanGlow)" />
+            <circle cx="850" cy="690" r="4" fill="#ffffff" stroke="none" />
+          </g>
+
+          {/* Bottom Left Constellation/Hex Web */}
+          <g stroke="rgba(255, 255, 255, 0.05)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M 100 950 L 250 880 L 300 1050 Z" />
+            <path d="M 250 880 L 400 920 L 300 1050" />
+            <path d="M 400 920 L 520 1050 L 300 1050" />
+            <circle cx="250" cy="880" r="3" fill="#00d2ff" stroke="none" filter="url(#cyanGlow)" />
+            <circle cx="400" cy="920" r="2" fill="rgba(255,255,255,0.3)" stroke="none" />
           </g>
         </svg>
       </div>
 
       <div ref={contentRef} className="absolute inset-0 flex flex-col justify-between pr-6 pl-16 sm:pr-8 sm:pl-20 md:pr-12 md:pl-28 py-[6vh] md:py-[8vh] z-30 pointer-events-auto">
         
-        {/* CHANGED: Swapped md:pt-44 for md:pt-[10vh] so the padding shrinks on smaller monitors */}
-        <div className="flex-1 flex flex-col items-end justify-center md:justify-start md:pt-[10vh] pr-4 sm:pr-8 md:pr-32 w-full">
-          <div className="flex flex-col items-start w-full max-w-xs md:max-w-sm">
+        {/* SHIFTED RIGHT: Reduced pr-32 to pr-0 md:pr-8 to push the block further right */}
+        <div className="flex-1 flex flex-col items-end justify-center md:justify-start md:pt-[10vh] pr-0 sm:pr-4 md:pr-8 w-full">
+          <div className="flex flex-col items-start w-full max-w-sm md:max-w-md lg:max-w-lg">
             
-            {/* CHANGED: Swapped md:mb-52 for md:mb-[12vh] so the gap scales natively without breaking flexbox */}
-            <div className="h-[79px] sm:h-24 md:h-36 lg:h-40 mb-8 sm:mb-10 md:mb-[12vh] overflow-hidden flex items-center justify-start">
-              <img src="/aerocon26-logo.png" alt="Flagship Event" className="w-full h-full object-contain opacity-100" />
+            {/* TIGHTER LOGO: Changed to mb-0 and justify-end to hug the baseline */}
+            <div className="h-28 sm:h-36 md:h-52 lg:h-64 mb-0 overflow-hidden flex items-end justify-start w-full">
+              {/* object-bottom forces the image to sit at the absolute bottom of the container to prevent invisible gaps */}
+              <img src="/aerocon26-logo.png" alt="Flagship Event" className="w-full h-full object-contain object-bottom opacity-100" />
             </div>
 
-            <div className="w-full flex flex-col items-start gap-2">
+            {/* PULLED UP: Added negative top margin (-mt-2 md:-mt-6) to snap the sub-text directly under the logo */}
+            <div className="w-full flex flex-col items-start gap-2 -mt-2 md:-mt-6">
               <div className="flex items-center gap-2.5">
                 <svg className="w-3.5 h-3.5 text-[#ffe600] fill-current" viewBox="0 0 24 24">
                   <path d="M12 2L1 21h22L12 2zm0 3.83L19.13 19H4.87L12 5.83zM11 16h2v2h-2v-2zm0-6h2v4h-2v-4z" />
@@ -170,7 +170,7 @@ const Loader = ({ onFlash, onWipeComplete, onComplete }) => {
 
               <div className="w-full h-[1px] bg-white/20 my-1"></div>
 
-              <p className="text-white/90 font-sans font-semibold text-[10px] sm:text-xs md:text-sm tracking-[0.25em] uppercase">
+              <p className="text-white/90 font-sans font-semibold text-[8px] sm:text-[10px] md:text-xs tracking-[0.25em] uppercase">
                 COMING SOON
               </p>
             </div>

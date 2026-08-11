@@ -59,7 +59,7 @@ const RosterPage = ({ onNavigate }) => {
   ];
 
   const k25Members = [
-    "Suraj Kumar", "Ankit Kumar", "Jyotishko Ray", "Pritam", "Krish Narayan",
+    "Suraj Kumar", "Ankit Kumar", "Jyotishko Ray", "Pritam",
     "Vinayak Gupta", "Nityam Jayaswal", "Roushan Kumar Sinha", "Aayush Raj",
     "Abhishek Kumar Singh", "Aaditya Setu", "Nikhil Kumar Keshri", "Vasu Suneja",
     "Arijit Dolai", "Khushi Pandey", "Raghav Gaur", "Souptik Mondal", "Avnish Raj",

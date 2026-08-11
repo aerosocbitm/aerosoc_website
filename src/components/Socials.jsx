@@ -136,7 +136,7 @@ const Socials = () => {
       </div>
 
       <div className="relative z-10 text-center flex flex-col items-center">
-        <h3 className="text-2xl md:text-3xl font-display font-medium text-white mb-8">
+        <h3 className="text-2xl md:text-3xl font-sans font-small text-white mb-8">
           Follow AeroSoc on social media
         </h3>
         
@@ -147,7 +147,7 @@ const Socials = () => {
               href={platform.url} 
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white font-display font-black uppercase tracking-widest text-sm md:text-base hover:text-accent transition-colors duration-300 relative group"
+              className="text-white font-display uppercase tracking-widest text-sm md:text-base hover:text-accent transition-colors duration-300 relative group"
             >
               {platform.name}
               <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>

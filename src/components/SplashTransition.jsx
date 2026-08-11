@@ -23,9 +23,6 @@ const SplashTransition = ({ targetView, onMidpoint, onComplete }) => {
         }
       });
 
-      // =========================================================================
-      // 1. SET EXPLICIT STARTING EDGE (Guarantees Left->Right or Right->Left)
-      // =========================================================================
       if (isReturning) {
         // RETURNING HOME: Start at Left edge (0 width) -> Sweep rightward
         gsap.set(actionBoxRef.current, {
@@ -44,9 +41,6 @@ const SplashTransition = ({ targetView, onMidpoint, onComplete }) => {
         });
       }
 
-      // =========================================================================
-      // 2. EXPAND TO COVER SCREEN (100% width)
-      // =========================================================================
       tl.to(actionBoxRef.current, {
         width: "100%",
         duration: 1.2,
@@ -77,9 +71,6 @@ const SplashTransition = ({ targetView, onMidpoint, onComplete }) => {
         duration: 0.6,
         ease: "power2.in",
       })
-      // =========================================================================
-      // 4. COLLAPSE TO REVEAL NEW PAGE (0% width)
-      // =========================================================================
       .to(actionBoxRef.current, {
         width: "0%",
         duration: 1.2,
@@ -111,6 +102,10 @@ const SplashTransition = ({ targetView, onMidpoint, onComplete }) => {
               ? 'DEPLOYING ROSTER'
               : targetView === 'archive'
               ? 'ACCESSING ARCHIVES'
+              : targetView === 'projects'
+              ? 'ACCESSING PROJECTS'
+              : targetView === 'workshops'
+              ? 'ACCESSING WORKSHOPS'
               : 'RETURNING TO MAIN PAGE'}
           </span>
         </div>

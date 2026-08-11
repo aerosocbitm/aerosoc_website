@@ -58,16 +58,12 @@ const Gallery = ({ onNavigate }) => {
         ))}
 
         <div className="flex-shrink-0 w-72 md:w-80 -translate-y-6 md:-translate-y-8 pointer-events-auto">
-          <h3 className="text-xl md:text-2xl font-display text-white leading-relaxed font-light">
+          <h3 className="text-xl md:text-2xl font-sans text-white leading-relaxed font-light">
             "One small step for man, <span className="text-accent italic font-normal">one giant leap for mankind."</span>
           </h3>
-          <p className="mt-4 text-[10px] text-gray-600 font-sans tracking-[0.2em] uppercase">Neil Armstrong</p>
+          <p className="mt-4 text-[10px] text-gray-400 font-sans tracking-[0.2em] uppercase">Neil Armstrong</p>
         </div>
 
-        {/* 
-          - hidden (< md:): Entirely removed from DOM on mobile so scroll ends at the quote.
-          - md:flex (>= md:): Physical spacer block restored for desktop aesthetic spacing.
-        */}
         <div className="hidden md:flex flex-shrink-0 w-[45vw] items-center justify-end pointer-events-auto relative z-50">
           
         </div>
