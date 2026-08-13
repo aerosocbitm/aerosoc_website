@@ -30,15 +30,27 @@ const FootfallGraph = () => {
     let ctx = gsap.context(() => {
       
       const pathLength = pathRef.current.getTotalLength();
-      gsap.set(pathRef.current, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
       
+      gsap.set(pathRef.current, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
       gsap.set(".graph-dot", { scale: 0, opacity: 0 });
+
+      gsap.set(planeRef.current, {
+        opacity: 0,
+        scale: 0,
+        motionPath: {
+          path: pathRef.current,
+          align: pathRef.current,
+          alignOrigin: [0.5, 0.5],
+          autoRotate: true,
+          start: 0,
+          end: 0 
+        }
+      });
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top 60%", 
-          // THE FIX: "restart" on entering from top, "reset" on leaving from top
           toggleActions: "restart none none reset" 
         }
       });
@@ -49,16 +61,15 @@ const FootfallGraph = () => {
       )
       .fromTo(".grid-line", 
         { opacity: 0 }, 
-        { opacity: 0.15, duration: 0.6, stagger: 0.1 }, 
+        { opacity: 0.1, duration: 0.6, stagger: 0.1 }, 
         "-=0.4"
       )
       .fromTo(".label-text", 
         { opacity: 0, y: 10 }, 
-        { opacity: 0.7, y: 0, duration: 0.5, stagger: 0.04 }, 
+        { opacity: 0.9, y: 0, duration: 0.5, stagger: 0.04 }, 
         "-=0.3"
       )
-      .fromTo(planeRef.current, 
-        { opacity: 0, scale: 0 }, 
+      .to(planeRef.current, 
         { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }
       )
       .to(pathRef.current, {
@@ -71,7 +82,9 @@ const FootfallGraph = () => {
           path: pathRef.current,
           align: pathRef.current,
           alignOrigin: [0.5, 0.5],
-          autoRotate: true 
+          autoRotate: true,
+          start: 0,
+          end: 1 
         },
         duration: 6, 
         ease: "power1.inOut"
@@ -93,8 +106,8 @@ const FootfallGraph = () => {
   const height = 600;
   const paddingLeft = 120;
   const paddingRight = 60;
-  const paddingTop = 60;
-  const paddingBottom = 160;
+  const paddingTop = 40; 
+  const paddingBottom = 80; 
 
   const chartWidth = width - paddingLeft - paddingRight;
   const chartHeight = height - paddingTop - paddingBottom;
@@ -112,23 +125,27 @@ const FootfallGraph = () => {
   return (
     <section ref={containerRef} className="w-full min-h-screen py-24 bg-transparent relative overflow-hidden border-t border-white/5 flex flex-col items-center justify-center">
       
+      <div className="text-center  mb-8 pointer-events-auto relative z-10 w-full px-6">
+        <h2 className="text-3xl sm:text-4xl md:text-3.5xl font-sans text-white uppercase tracking-[0.3em]">
+        EVENT FOOTFALL
+        </h2>
+      </div>
+
       <div className="w-full max-w-5xl px-6 relative z-10">
-        
         <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto overflow-visible select-none">
           
           {[500, 1000, 1500, 2000].map((tick) => (
             <g key={tick}>
               <line className="grid-line stroke-white" x1={paddingLeft} y1={getY(tick)} x2={width - paddingRight} y2={getY(tick)} strokeWidth="1" />
-              <text className="label-text fill-white/50 text-[11px] font-sans text-right tracking-wider" x={paddingLeft - 20} y={getY(tick) + 4} textAnchor="end">{tick}</text>
+              <text className="label-text fill-white/80 text-[12px] font-sans text-right tracking-wider" x={paddingLeft - 20} y={getY(tick) + 4} textAnchor="end">{tick}</text>
             </g>
           ))}
 
-          <line className="axis-line stroke-white/40" x1={paddingLeft} y1={paddingTop} x2={paddingLeft} y2={height - paddingBottom} strokeWidth="2" />
-          
-          <line className="axis-line stroke-white/40" x1={paddingLeft} y1={height - paddingBottom} x2={width - paddingRight} y2={height - paddingBottom} strokeWidth="2" />        
+          <line className="axis-line stroke-white/70" x1={paddingLeft} y1={paddingTop} x2={paddingLeft} y2={height - paddingBottom} strokeWidth="2" />
+          <line className="axis-line stroke-white/70" x1={paddingLeft} y1={height - paddingBottom} x2={width - paddingRight} y2={height - paddingBottom} strokeWidth="2" />        
 
-          <text className="label-text fill-white text-[24px] font-display font-black tracking-[0.3em] uppercase origin-center" x={paddingLeft + chartWidth / 2} y={height - paddingBottom + 70} textAnchor="middle">
-            EVENT FOOTFALL
+          <text className="label-text fill-white/60 text-[14px] font-sans tracking-[0.3em] uppercase origin-center" x={paddingLeft + chartWidth / 2} y={height - paddingBottom + 50} textAnchor="middle">
+            Events
           </text>
 
           <path ref={pathRef} d={pathD} fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />

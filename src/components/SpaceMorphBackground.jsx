@@ -190,7 +190,8 @@ const SpaceMorphBackground = forwardRef(({ active = false }, ref) => {
     geometry.setAttribute('aHighlightEarth', new THREE.BufferAttribute(highlightEarth, 1));
 
     const mouse3D = new THREE.Vector3(-9999, -9999, -9999);
-    const isMobileInit = window.innerWidth < 768 ? 1.0 : 0.0;
+    // CHANGED: 768 to 1024 for Tablet targeting
+    const isMobileInit = window.innerWidth < 1024 ? 1.0 : 0.0;
     
     const vertexShader = `
       uniform float uTime;
@@ -397,8 +398,8 @@ const SpaceMorphBackground = forwardRef(({ active = false }, ref) => {
     const currentRotation = new THREE.Vector2(0, 0);
 
     const onMouseMove = (e) => {
-      // Ignore mousemove on mobile/touch screens so simulated touch events don't move uPointer
-      if (window.innerWidth < 768) return;
+      // CHANGED: Ignore mousemove on mobile AND tablet (width < 1024)
+      if (window.innerWidth < 1024) return;
 
       mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -445,7 +446,8 @@ const SpaceMorphBackground = forwardRef(({ active = false }, ref) => {
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
       if (materialRef.current) {
-        materialRef.current.uniforms.uIsMobile.value = window.innerWidth < 768 ? 1.0 : 0.0;
+        // CHANGED: 768 to 1024 for Tablet targeting
+        materialRef.current.uniforms.uIsMobile.value = window.innerWidth < 1024 ? 1.0 : 0.0;
       }
     };
     window.addEventListener('resize', onResize);

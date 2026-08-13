@@ -25,7 +25,6 @@ const Team = ({ onNavigate }) => {
   useEffect(() => {
     let ctx = gsap.context(() => {
       
-      // 1. The Header Animation
       gsap.fromTo(".team-header", 
         { y: 50, opacity: 0 },
         {
@@ -41,7 +40,6 @@ const Team = ({ onNavigate }) => {
         }
       );
 
-      // 2. The Custom Sequence Timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".team-grid-container",
@@ -68,14 +66,13 @@ const Team = ({ onNavigate }) => {
   return (
     <section id="team" ref={teamRef} className="min-h-screen py-32 px-8 md:px-24 bg-transparent relative border-t border-white/5 pointer-events-none">      
       <div className="team-header mb-20 text-center pointer-events-auto">
-        <div className="text-4xl md:text-7xl font-nasa text-white uppercase tracking-tighter">
+        <div className="text-5xl md:text-7xl font-nasa text-white uppercase tracking-tighter">
           Our <span className="text-accent">Crew</span>
         </div>
       </div>
 
       <div className="team-grid-container pointer-events-auto">
         
-        {/* Core Members Grid */}
         <div className="flex flex-wrap justify-center gap-16 md:gap-24 mb-16 max-w-5xl mx-auto">
           {studentMembers.map((member, index) => (
             <div key={index} className="team-profile flex flex-col items-center cursor-pointer">
@@ -99,7 +96,6 @@ const Team = ({ onNavigate }) => {
           ))}
         </div>
 
-        {/* Professor - Centered Bottom */}
         <div className="team-profile flex flex-col items-center cursor-pointer mb-20 mx-auto">
           <div className="member-circle peer group w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white/10 mb-6 relative z-10 bg-black hover:border-accent transition-colors duration-500 transform-gpu">
             {professor.img && (
@@ -119,7 +115,6 @@ const Team = ({ onNavigate }) => {
 
       </div>
 
-      {/* CLICK WIRED TO onNavigate('roster') WITH EXPLICIT POINTER EVENTS */}
       <div className="flex justify-center mt-8 pointer-events-auto relative z-50">
         <button
           type="button"

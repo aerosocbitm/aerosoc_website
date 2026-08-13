@@ -60,8 +60,9 @@ const Navigation = ({ onGoHome, onNavigate }) => {
 
   return (
     <>
-      {/* MOBILE TOP BAR WITH MINIMALIST 3-LINE ICON */}
-      <div className="fixed top-6 right-6 z-[201] flex md:hidden items-center pointer-events-auto">
+      {/* MOBILE/TAB TOP BAR WITH MINIMALIST 3-LINE ICON */}
+      {/* CHANGED: md:hidden -> lg:hidden, top-6 -> top-10 to align with Sponsor Us */}
+      <div className="fixed top-10 right-6 z-[201] flex lg:hidden items-center pointer-events-auto">
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle Navigation Menu"
@@ -79,9 +80,10 @@ const Navigation = ({ onGoHome, onNavigate }) => {
         </button>
       </div>
 
-      {/* MOBILE FULL-SCREEN OVERLAY MENU */}
+      {/* MOBILE/TAB FULL-SCREEN OVERLAY MENU */}
+      {/* CHANGED: md:hidden -> lg:hidden */}
       <div
-        className={`fixed inset-0 bg-black/95 backdrop-blur-2xl z-[200] flex md:hidden flex-col items-center justify-center px-6 transition-all duration-500 pointer-events-auto ${
+        className={`fixed inset-0 bg-black/95 backdrop-blur-2xl z-[200] flex lg:hidden flex-col items-center justify-center px-6 transition-all duration-500 pointer-events-auto ${
           mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
         }`}
       >
@@ -113,9 +115,10 @@ const Navigation = ({ onGoHome, onNavigate }) => {
         </nav>
       </div>
 
-      {/* DESKTOP SIDEBAR NAVIGATION (UNTOUCHED) */}
+      {/* DESKTOP SIDEBAR NAVIGATION */}
+      {/* CHANGED: hidden md:flex -> hidden lg:flex */}
       <div 
-        className="hidden md:flex fixed top-0 right-0 h-screen z-[200] flex-col py-8 bg-transparent backdrop-blur-sm border-l border-white/5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        className="hidden lg:flex fixed top-0 right-0 h-screen z-[200] flex-col py-8 bg-transparent backdrop-blur-sm border-l border-white/5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         style={{ width: isHovered ? '11rem' : '4rem' }}

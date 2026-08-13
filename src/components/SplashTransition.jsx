@@ -24,7 +24,6 @@ const SplashTransition = ({ targetView, onMidpoint, onComplete }) => {
       });
 
       if (isReturning) {
-        // RETURNING HOME: Start at Left edge (0 width) -> Sweep rightward
         gsap.set(actionBoxRef.current, {
           left: 0,
           right: "auto",
@@ -32,7 +31,6 @@ const SplashTransition = ({ targetView, onMidpoint, onComplete }) => {
           backgroundColor: "#00d2ff",
         });
       } else {
-        // LEAVING HOME: Start at Right edge (4rem width) -> Sweep leftward
         gsap.set(actionBoxRef.current, {
           right: 0,
           left: "auto",
@@ -48,19 +46,13 @@ const SplashTransition = ({ targetView, onMidpoint, onComplete }) => {
         onComplete: () => {
           if (midpointRef.current) midpointRef.current(targetView);
 
-          // FLIP ANCHORS FOR EXIT WIPE
           if (isReturning) {
-            // Empties Left-to-Right: anchor right edge so left edge pulls rightward
             gsap.set(actionBoxRef.current, { left: "auto", right: 0 });
           } else {
-            // Empties Right-to-Left: anchor left edge so right edge pulls leftward
             gsap.set(actionBoxRef.current, { right: "auto", left: 0 });
           }
         },
       })
-      // =========================================================================
-      // 3. MIDPOINT STATUS FLASH
-      // =========================================================================
       .fromTo(
         labelRef.current,
         { opacity: 0, scale: 0.95 },

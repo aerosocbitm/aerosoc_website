@@ -3,7 +3,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap');
 @import "tailwindcss";
 
-/* 2. Load your custom local fonts */
 @font-face {
   font-family: 'Square Dot Matrix';
   src: url('/fonts/Square-Dot-Matrix.ttf') format('truetype'),
@@ -20,40 +19,19 @@
   font-display: swap;
 }
 @font-face {
+  font-family: 'Grafiti';
+  src: url('/fonts/Aerosoldier.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: 'Azonix';
   src: url('/fonts/Azonix.otf') format('opentype'),
   url('/fonts/Azonix.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-}
-
-@font-face {
-  font-family: 'Minecraft';
-  src:  url('/fonts/Minercraftory.ttf') format('truetype'),
-        url('/fonts/Minercraftory.woff2') format('woff2');
-  font-weight: 100 900; 
-  font-style: normal;
-  font-display: swap;
-}
-
-
-@font-face {
-  font-family: 'Led Dot Matrix';
-  src: url('/LED Dot-Matrix.ttf') format('truetype'),
-       url('/LED Dot-Matrix.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Adelia';
-  src: url('/fonts/adelia.ttf') format('truetype'),
-       url('/fonts/adelia.woff2') format('woff2'); 
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap; 
 }
 
 html {
@@ -67,12 +45,10 @@ html {
 }
 
 @theme {
-  /* Custom AeroSoc Colors */
   --color-background: #0a0a0a;
   --color-surface: #171717;
   --color-accent: #48E4FF;
   
-  /* 3. Generalize All Fonts as Tailwind Classes */
   --font-sans: "Inter", sans-serif;
   --font-display: "Poppins", sans-serif;
   --font-orbitron: "Orbitron", sans-serif;
@@ -83,6 +59,7 @@ html {
   --font-azonix:"Azonix",sans-serif;
   --font-minecraft:"Minecraft", monospace;
   --font-nasa:"Nasa", monospace;
+  --font-grafiti:"Grafiti", monospace;
 }
 
 body {

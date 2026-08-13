@@ -136,18 +136,15 @@ const Loader = ({ onFlash, onWipeComplete, onComplete }) => {
 
       <div ref={contentRef} className="absolute inset-0 flex flex-col justify-between pr-6 pl-16 sm:pr-8 sm:pl-20 md:pr-12 md:pl-28 py-[6vh] md:py-[8vh] z-30 pointer-events-auto">
         
-        {/* SHIFTED RIGHT: Reduced pr-32 to pr-0 md:pr-8 to push the block further right */}
         <div className="flex-1 flex flex-col items-end justify-center md:justify-start md:pt-[10vh] pr-0 sm:pr-4 md:pr-8 w-full">
           <div className="flex flex-col items-start w-full max-w-sm md:max-w-md lg:max-w-lg">
             
-            {/* TIGHTER LOGO: Changed to mb-0 and justify-end to hug the baseline */}
             <div className="h-28 sm:h-36 md:h-52 lg:h-64 mb-0 overflow-hidden flex items-end justify-start w-full">
-              {/* object-bottom forces the image to sit at the absolute bottom of the container to prevent invisible gaps */}
               <img src="/aerocon26-logo.png" alt="Flagship Event" className="w-full h-full object-contain object-bottom opacity-100" />
             </div>
 
-            {/* PULLED UP: Added negative top margin (-mt-2 md:-mt-6) to snap the sub-text directly under the logo */}
-            <div className="w-full flex flex-col items-start gap-2 -mt-2 md:-mt-6">
+            {/* CHANGED: Added pl-4 sm:pl-6 md:pl-0 to nudge this block right on mobile without affecting desktop */}
+            <div className="w-full flex flex-col items-start gap-2 -mt-2 md:-mt-6 pl-4 sm:pl-6 md:pl-0">
               <div className="flex items-center gap-2.5">
                 <svg className="w-3.5 h-3.5 text-[#ffe600] fill-current" viewBox="0 0 24 24">
                   <path d="M12 2L1 21h22L12 2zm0 3.83L19.13 19H4.87L12 5.83zM11 16h2v2h-2v-2zm0-6h2v4h-2v-4z" />

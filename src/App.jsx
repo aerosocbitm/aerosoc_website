@@ -56,12 +56,19 @@ function App() {
 
   const lastSectionRef = useRef('#heading');
 
-  const [mountWebsite, setMountWebsite] = useState(false);
-  const [startAnimations, setStartAnimations] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  // LOGIC ADDED: Check if loading directly into a subpage to skip the loader
+  const initialView = getInitialView();
+  const isDirectSubpageLoad = initialView !== 'home';
 
-  const [currentView, setCurrentView] = useState(getInitialView); 
+  const [mountWebsite, setMountWebsite] = useState(isDirectSubpageLoad);
+  const [startAnimations, setStartAnimations] = useState(isDirectSubpageLoad);
+  const [isLoaded, setIsLoaded] = useState(isDirectSubpageLoad);
+
+  const [currentView, setCurrentView] = useState(initialView); 
   const [transitionTarget, setTransitionTarget] = useState(null);
+
+  const currentViewRef = useRef(currentView);
+  currentViewRef.current = currentView;
 
   const handleNavigate = (targetPage, isPopState = false) => {
     if (targetPage === currentView) return;
@@ -133,11 +140,15 @@ function App() {
   }, [currentView]);
 
   useEffect(() => {
+    const isMobileOrTablet = window.innerWidth < 1024;
+
     const lenis = new Lenis({
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      syncTouch: true,
       touchMultiplier: 2,
+      gestureOrientation: isMobileOrTablet ? 'both' : 'vertical',
     });
 
     lenisRef.current = lenis;
@@ -193,7 +204,9 @@ function App() {
         duration: 2.5,
         ease: "power2.inOut",
         onUpdate: () => {
-          if (morphEngineRef.current) morphEngineRef.current.setMorphState(proxy.morphState);
+          if (currentViewRef.current === 'home' && morphEngineRef.current) {
+            morphEngineRef.current.setMorphState(proxy.morphState);
+          }
         }
       });
 
@@ -204,6 +217,7 @@ function App() {
           end: "center center",
           scrub: 1,
           onUpdate: (self) => {
+            if (currentViewRef.current !== 'home') return; 
             const state = 1.0 + self.progress; 
             if (morphEngineRef.current) morphEngineRef.current.setMorphState(state);
           }
@@ -215,6 +229,7 @@ function App() {
           end: "bottom top",
           scrub: 1,
           onUpdate: (self) => {
+            if (currentViewRef.current !== 'home') return; 
             const state = 2.0 + self.progress; 
             if (morphEngineRef.current) morphEngineRef.current.setMorphState(state);
           }
@@ -294,6 +309,8 @@ function App() {
           )}
 
           <div style={{ display: currentView === 'home' ? 'block' : 'none' }}>
+            
+            {/* REVERTED: Background is back inside the home container */}
             <SpaceMorphBackground ref={morphEngineRef} active={startAnimations && currentView === 'home'} />
 
             <div className="relative z-[200]">

@@ -3,7 +3,6 @@ import React from 'react';
 const WorkshopsPage = ({ onNavigate }) => {
   return (
     <div className="min-h-screen bg-black text-white pt-28 pb-32 px-8 md:px-24 flex flex-col justify-between relative overflow-hidden">
-      {/* Top Navigation Bar */}
       <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-8 gap-6 z-10">
         <div>
           <p className="text-accent font-sans text-xs tracking-[0.3em] uppercase mb-2">AEROSOC</p>
@@ -19,7 +18,6 @@ const WorkshopsPage = ({ onNavigate }) => {
         </button>
       </div>
 
-      {/* Center "Under Construction" HUD */}
       <div className="flex flex-col items-center justify-center my-auto text-center py-24 z-10">
         <div className="w-16 h-16 rounded-full bg-accent/10 border border-accent/40 flex items-center justify-center mb-6 animate-pulse">
           <svg className="w-8 h-8 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -37,7 +35,6 @@ const WorkshopsPage = ({ onNavigate }) => {
 
       </div>
 
-      {/* Decorative Bottom Glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-accent/5 blur-[100px] pointer-events-none"></div>
     </div>
   );

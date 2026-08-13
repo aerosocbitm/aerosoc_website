@@ -41,21 +41,18 @@ const RosterPage = ({ onNavigate }) => {
     { name: "Shrishti", role: "Executive Body Member" },
     { name: "Anurag Kumar Verma", role: "Executive Body Member" },
     { name: "Anshal", role: "Executive Body Member" },
-    { name: "Abhishek Kumar", role: "Executive Body Member" },
-    { name: "Ayush Ashank", role: "Executive Body Member" },
   ];
 
   const webDesignTeam = [
-    { name: "Anikait Sen Gupta", role: "Web Dev Team", img: "" },
+    { name: "Anikait Sen Gupta", role: "Web Dev Team", img: "/wedev1.jpeg" },
     { name: "Renikson Ekka", role: "Web Dev Team", img: "" },
   ];
 
   const k24Members = [
-    "Annika Singh", "Harsh Raj Pandey", "Aditya Prakash", "Sakshi Singh",
+    "Annika Singh", "Harsh Raj Pandey", "Aditya Prakash",
     "Shubhangi Kashyap", "Sourabh Kumar", "Anurag Kumar Verma", "Akshay Gautam",
-    "Anikait Sen Gupta", "Shekhar Sharma", "Yash Vardhan", "Renikson Yash Ekka",
-    "Malhar Narendra Jadhao", "Anshal Kumar", "Payal Soni", "Ayush Ashank",
-    "Aryan Shankar", "Abhishek Kumar", "Himanshu Prasad"
+    "Anikait Sen Gupta", "Renikson Yash Ekka", "Anshal Kumar",
+    "Aryan Shankar", "Himanshu Prasad"
   ];
 
   const k25Members = [
@@ -189,7 +186,7 @@ const RosterPage = ({ onNavigate }) => {
         <h2 className="text-xl font-display uppercase tracking-wider text-gray-400 mb-8 border-l-2 border-accent pl-4">
           Web Design Team
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 max-w-2xl gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 max-w-2xl ">
           {webDesignTeam.map((member, i) => (
             <div
               key={i}
