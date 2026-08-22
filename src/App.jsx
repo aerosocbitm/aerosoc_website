@@ -56,7 +56,6 @@ function App() {
 
   const lastSectionRef = useRef('#heading');
 
-  // LOGIC ADDED: Check if loading directly into a subpage to skip the loader
   const initialView = getInitialView();
   const isDirectSubpageLoad = initialView !== 'home';
 
@@ -104,15 +103,12 @@ function App() {
 
   useEffect(() => {
     if (currentView === 'home') {
-      const refreshTimer = setTimeout(() => {
+      // Delay to let React apply 'display: block' so heights aren't evaluated as 0px
+      const timer = setTimeout(() => {
         ScrollTrigger.refresh(true);
         window.dispatchEvent(new Event('resize'));
         if (lenisRef.current) lenisRef.current.resize();
-      }, 50);
 
-      const scrollTimer = setTimeout(() => {
-        if (lenisRef.current) lenisRef.current.resize();
-        
         const targetEl = document.querySelector(lastSectionRef.current);
         if (targetEl && lenisRef.current) {
           lenisRef.current.scrollTo(targetEl, { immediate: true, force: true });
@@ -120,17 +116,10 @@ function App() {
           targetEl.scrollIntoView();
         }
 
-        if (lastSectionRef.current === '#heading' && morphEngineRef.current) {
-          morphEngineRef.current.setMorphState(1.0);
-        }
+        setTimeout(() => ScrollTrigger.update(), 50);
+      }, 50);
 
-        ScrollTrigger.update();
-      }, 200);
-
-      return () => {
-        clearTimeout(refreshTimer);
-        clearTimeout(scrollTimer);
-      };
+      return () => clearTimeout(timer);
     } else {
       window.scrollTo(0, 0);
       if (lenisRef.current) {
@@ -176,64 +165,77 @@ function App() {
       const subText = document.querySelector('#heading p');
       const allHeadingButtons = gsap.utils.toArray('.heading-anim-btn');
 
+      const animDelay = isDirectSubpageLoad ? 0 : 2.0;
+
       if (mainText) {
         gsap.fromTo(mainText,
           { x: -80, opacity: 0 },
-          { x: 0, opacity: 1, duration: 1.5, delay: 2.0, ease: "expo.out" }
+          { x: 0, opacity: 1, duration: 1.5, delay: animDelay, ease: "expo.out" }
         );
       }
 
       if (subText) {
         gsap.fromTo(subText,
           { x: -80, opacity: 0 },
-          { x: 0, opacity: 1, duration: 1.5, delay: 2.5, ease: "expo.out" }
+          { x: 0, opacity: 1, duration: 1.5, delay: animDelay + 0.5, ease: "expo.out" }
         );
       }
 
       if (allHeadingButtons.length > 0) {
         gsap.fromTo(allHeadingButtons,
           { x: -80, opacity: 0 },
-          { x: 0, opacity: 1, duration: 1.5, delay: 3.0, ease: "expo.out" }
+          { x: 0, opacity: 1, duration: 1.5, delay: animDelay + 1.0, ease: "expo.out" }
         );
       }
 
-      const proxy = { morphState: 0.0 };
+      // Proxy object handling the morph states
+      const proxy = { morphState: isDirectSubpageLoad ? 1.0 : 0.0 };
+      let introTween = null;
 
-      gsap.to(proxy, {
-        morphState: 1.0, 
-        duration: 2.5,
-        ease: "power2.inOut",
-        onUpdate: () => {
-          if (currentViewRef.current === 'home' && morphEngineRef.current) {
-            morphEngineRef.current.setMorphState(proxy.morphState);
-          }
+      const applyMorphState = () => {
+        if (currentViewRef.current === 'home' && morphEngineRef.current) {
+          morphEngineRef.current.setMorphState(proxy.morphState);
         }
-      });
+      };
+
+      if (!isDirectSubpageLoad) {
+        introTween = gsap.to(proxy, {
+          morphState: 1.0, 
+          duration: 2.5,
+          ease: "power2.inOut",
+          onUpdate: applyMorphState
+        });
+      } else {
+        if (morphEngineRef.current) morphEngineRef.current.setMorphState(1.0);
+      }
 
       if (aboutWrapRef.current) {
-        ScrollTrigger.create({
-          trigger: aboutWrapRef.current,
-          start: "top bottom",
-          end: "center center",
-          scrub: 1,
-          onUpdate: (self) => {
-            if (currentViewRef.current !== 'home') return; 
-            const state = 1.0 + self.progress; 
-            if (morphEngineRef.current) morphEngineRef.current.setMorphState(state);
+        const morphTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: aboutWrapRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+            onUpdate: applyMorphState,
+            onEnter: () => {
+              // Immediately kill the intro tween if user attempts to scroll early
+              if (introTween) {
+                introTween.kill();
+                introTween = null;
+              }
+            }
           }
         });
 
-        ScrollTrigger.create({
-          trigger: aboutWrapRef.current,
-          start: "center center",
-          end: "bottom top",
-          scrub: 1,
-          onUpdate: (self) => {
-            if (currentViewRef.current !== 'home') return; 
-            const state = 2.0 + self.progress; 
-            if (morphEngineRef.current) morphEngineRef.current.setMorphState(state);
-          }
-        });
+        // Frame-locked sequence mapped to scroll height.
+        // ADDED `immediateRender: false` so it doesn't instantly snap the state to 1.0 on page load.
+        morphTl.fromTo(proxy, 
+          { morphState: 1.0 }, 
+          { morphState: 2.0, ease: "none", immediateRender: false }
+        )
+        .to(proxy, 
+          { morphState: 3.0, ease: "none" }
+        );
       }
 
       const sections = gsap.utils.toArray('.premium-section');
@@ -310,7 +312,6 @@ function App() {
 
           <div style={{ display: currentView === 'home' ? 'block' : 'none' }}>
             
-            {/* REVERTED: Background is back inside the home container */}
             <SpaceMorphBackground ref={morphEngineRef} active={startAnimations && currentView === 'home'} />
 
             <div className="relative z-[200]">

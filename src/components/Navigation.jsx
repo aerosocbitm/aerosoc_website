@@ -123,7 +123,7 @@ const Navigation = ({ onGoHome, onNavigate }) => {
         onMouseLeave={() => setIsHovered(false)}
         style={{ width: isHovered ? '11rem' : '4rem' }}
       >
-        <div className="w-full flex justify-end px-3 mb-30">
+        <div className="w-full flex justify-end px-3 mb-24">
           <div className="flex items-center gap-4 cursor-pointer" onClick={() => handleNavClick({ id: 'heading' })}>
             <span className={`text-white font-display font-bold tracking-[0.2em] text-xs uppercase overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] text-right whitespace-nowrap ${isHovered ? 'w-24 opacity-100' : 'w-0 opacity-0'}`}>
               AEROSOC

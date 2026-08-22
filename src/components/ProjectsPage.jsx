@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import gsap from 'gsap';
 import { ChevronLeft, ChevronRight, SquareMenu, AlertTriangle } from 'lucide-react';
 
@@ -32,77 +33,124 @@ const ProjectsPage = () => {
   const textContainerRef = useRef(null);
   
   useEffect(() => {
-    const w = mountRef.current.clientWidth;
-    const h = mountRef.current.clientHeight;
+    if (!mountRef.current) return;
+
+    // SHRUNK CANVAS: Scaled down from 600 to 500 for better breathing room
+    const W = 500;
+    const H = 500;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
-    camera.position.set(0, 0, 10);
+    const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 1000);
+    camera.position.set(0, 0, 7); 
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(w, h);
+    renderer.setSize(W, H);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    
+    while (mountRef.current.firstChild) {
+      mountRef.current.removeChild(mountRef.current.firstChild);
+    }
     mountRef.current.appendChild(renderer.domElement);
 
+    // CRISPER POINTS: Reduced size from 0.04 to 0.015 so it looks like fine wireframe dust
     const material = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 0.03,
+      size: 0.015,
       transparent: true,
       opacity: 0.8,
       blending: THREE.AdditiveBlending
     });
 
-    let currentPoints = null;
+    let currentModelGroup = new THREE.Group();
+    scene.add(currentModelGroup);
 
-    const createPlaceholderHologram = (type) => {
-      if (currentPoints) scene.remove(currentPoints);
-      
-      let geometry;
-      if (type === 'drone') {
-        geometry = new THREE.TorusKnotGeometry(2, 0.5, 300, 40);
-      } else if (type === 'glider') {
-        geometry = new THREE.ConeGeometry(2, 5, 64, 64, false, 0, Math.PI * 2);
-        geometry.rotateX(Math.PI / 2);
-      } else {
-        geometry = new THREE.BoxGeometry(3, 3, 3, 30, 30, 30);
+    const loadHologram = (type) => {
+      while(currentModelGroup.children.length > 0){ 
+        const child = currentModelGroup.children[0];
+        if (child.geometry) child.geometry.dispose();
+        currentModelGroup.remove(child); 
       }
 
-      const edges = new THREE.EdgesGeometry(geometry);
-      currentPoints = new THREE.Points(edges, material);
-      
-      currentPoints.scale.set(0.1, 0.1, 0.1);
-      scene.add(currentPoints);
+      if (type === 'drone') {
+        const loader = new GLTFLoader();
+        loader.load('/drone.glb', (gltf) => {
+          const model = gltf.scene;
+          
+          model.traverse((child) => {
+            if (child.isMesh) {
+              // OUTLINES ONLY: Scans for geometric edges (15-degree threshold) to recreate the hologram blueprint
+              let edgeGeom = new THREE.EdgesGeometry(child.geometry, 15);
+              
+              // Fallback just in case the drone is perfectly smooth
+              if (edgeGeom.attributes.position.count === 0) {
+                edgeGeom = new THREE.WireframeGeometry(child.geometry);
+              }
 
-      gsap.to(currentPoints.scale, {
-        x: 1, y: 1, z: 1,
-        duration: 1.5,
-        ease: "expo.out"
-      });
+              const points = new THREE.Points(edgeGeom, material);
+              child.add(points);
+              child.material.visible = false; 
+            }
+          });
+
+          // Absolute Centering
+          const box = new THREE.Box3().setFromObject(model);
+          const center = box.getCenter(new THREE.Vector3());
+          model.position.sub(center); 
+
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          
+          // Scaled to 2.0 to fit perfectly inside the new smaller 500px rings
+          const targetScale = maxDim > 0 ? 6.75 / maxDim : 1;
+
+          const wrapper = new THREE.Group();
+          wrapper.add(model);
+          currentModelGroup.add(wrapper);
+
+          wrapper.scale.set(0.001, 0.001, 0.001);
+          gsap.to(wrapper.scale, {
+            x: targetScale, y: targetScale, z: targetScale,
+            duration: 1.5,
+            ease: "expo.out"
+          });
+        });
+
+      } else {
+        let geometry;
+        if (type === 'glider') {
+          geometry = new THREE.ConeGeometry(0.8, 2, 64, 64, false, 0, Math.PI * 2);
+          geometry.rotateX(Math.PI / 2);
+        } else {
+          geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5, 10, 10, 10);
+        }
+
+        geometry.center(); 
+        const edges = new THREE.EdgesGeometry(geometry, 15);
+        const points = new THREE.Points(edges, material);
+        
+        currentModelGroup.add(points);
+        
+        points.scale.set(0.01, 0.01, 0.01);
+        gsap.to(points.scale, {
+          x: 1, y: 1, z: 1,
+          duration: 1.5,
+          ease: "expo.out"
+        });
+      }
     };
-    createPlaceholderHologram(projectsData[activeIdx].modelType);
+
+    loadHologram(projectsData[activeIdx].modelType);
 
     let animationFrameId;
     const animate = () => {
-      if (currentPoints) {
-        currentPoints.rotation.y += 0.002;
-        currentPoints.rotation.x += 0.001;
-      }
+      currentModelGroup.rotation.y += 0.002;
+      currentModelGroup.rotation.x += 0.001;
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
     };
     animate();
 
-    const handleResize = () => {
-      const nw = mountRef.current.clientWidth;
-      const nh = mountRef.current.clientHeight;
-      camera.aspect = nw / nh;
-      camera.updateProjectionMatrix();
-      renderer.setSize(nw, nh);
-    };
-    window.addEventListener('resize', handleResize);
-
     return () => {
-      window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
       if (mountRef.current && renderer.domElement) {
         mountRef.current.removeChild(renderer.domElement);
@@ -111,6 +159,7 @@ const ProjectsPage = () => {
       material.dispose();
     };
   }, [activeIdx]); 
+
   const changeProject = (direction) => {
     gsap.to(textContainerRef.current, {
       opacity: 0,
@@ -155,24 +204,33 @@ const ProjectsPage = () => {
         }}
       />
       
-      <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/10 z-0 pointer-events-none" />
-      <div className="absolute top-0 left-1/3 w-[1px] h-full bg-white/10 z-0 pointer-events-none" />
+      {/* PUSHED LEFT: Adjusted crosshair math from 45% to 35% */}
+      <div className="absolute top-[40%] md:top-1/2 left-0 w-full h-[1px] bg-white/10 z-0 pointer-events-none" />
+      <div className="absolute top-0 left-1/2 md:left-[35%] w-[1px] h-full bg-white/10 z-0 pointer-events-none" />
 
-      <div ref={mountRef} className="absolute inset-0 z-10" />
+      {/* 
+        PUSHED LEFT & SCALED DOWN:
+        Changed left-[45%] to left-[35%]. 
+        Reduced container size to 500x500.
+        On mobile (before md:), it stays perfectly centered at top-[40%] to avoid the text block.
+      */}
+      <div className="absolute top-[40%] md:top-1/2 left-1/2 md:left-[35%] -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] scale-[0.6] sm:scale-75 lg:scale-90 z-20 pointer-events-none flex items-center justify-center">
+        
+        <div ref={mountRef} className="absolute inset-0 w-[500px] h-[500px] z-10" />
 
-      <div className="absolute top-1/2 left-[45%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none opacity-40">
-        <svg width="600" height="600" className="animate-[spin_40s_linear_infinite]">
-          <circle cx="300" cy="300" r="280" stroke="white" strokeWidth="2" fill="none" strokeDasharray="10 30" />
-          <circle cx="300" cy="300" r="260" stroke="white" strokeWidth="4" fill="none" strokeDasharray="100 800" strokeLinecap="round" />
+        <svg width="500" height="500" className="absolute inset-0 z-20 opacity-40 animate-[spin_40s_linear_infinite]">
+          <circle cx="250" cy="250" r="230" stroke="white" strokeWidth="2" fill="none" strokeDasharray="10 30" />
+          <circle cx="250" cy="250" r="210" stroke="white" strokeWidth="4" fill="none" strokeDasharray="100 800" strokeLinecap="round" />
         </svg>
-      </div>
-      <div className="absolute top-1/2 left-[45%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none opacity-20">
-        <svg width="400" height="400" className="animate-[spin_20s_linear_infinite_reverse]">
-          <circle cx="200" cy="200" r="180" stroke="#00d2ff" strokeWidth="1" fill="none" strokeDasharray="5 15" />
+
+        <svg width="340" height="340" className="absolute z-20 opacity-20 animate-[spin_20s_linear_infinite_reverse]">
+          <circle cx="170" cy="170" r="150" stroke="#00d2ff" strokeWidth="1" fill="none" strokeDasharray="5 15" />
         </svg>
+
       </div>
 
-      <div className="absolute top-28 left-6 md:left-12 z-30 flex flex-col gap-6">
+      {/* LEFT UI PANEL */}
+      <div className="absolute top-24 md:top-28 left-6 md:left-12 z-30 flex flex-col gap-6 pointer-events-none">
         <div>
           <div className="flex items-center gap-2 text-white/50 mb-2">
              <div className="w-2 h-2 bg-white/50" />
@@ -181,7 +239,7 @@ const ProjectsPage = () => {
           <h2 className="text-2xl md:text-3xl font-display font-bold text-white tracking-widest uppercase">PROTOTYPES</h2>
         </div>
         
-        <div className="w-16 h-16 bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center relative mt-4">
+        <div className="w-16 h-16 bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center relative mt-2 md:mt-4 pointer-events-auto">
           <SquareMenu className="text-white w-8 h-8 opacity-80" />
           <div className="absolute -left-3 top-2 flex flex-col gap-1">
              <div className="w-1 h-3 bg-[#00d2ff]" />
@@ -190,28 +248,28 @@ const ProjectsPage = () => {
         </div>
       </div>
 
-      <div className="absolute top-1/2 -translate-y-1/2 right-6 md:right-12 lg:right-32 z-30 w-full max-w-sm md:max-w-md">
+      {/* RIGHT UI PANEL: Adjusted max-width and typography to prevent overlapping circles */}
+      <div className="absolute top-[80%] md:top-1/2 -translate-y-1/2 right-6 md:right-12 lg:right-24 z-30 w-full max-w-[280px] sm:max-w-[320px] md:max-w-sm">
         
         <div ref={textContainerRef}>
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3 mb-3 md:mb-4">
             <div className="w-1.5 h-1.5 bg-white" />
-            <p className="text-[10px] md:text-xs font-sans tracking-[0.3em] text-white/70 uppercase">
+            <p className="text-[9px] md:text-[10px] lg:text-xs font-sans tracking-[0.3em] text-white/70 uppercase">
               {activeProject.subtitle}
             </p>
           </div>
           
-          <h3 className="text-4xl md:text-6xl font-display font-black text-white leading-none uppercase tracking-tighter mb-6">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-white leading-none uppercase tracking-tighter mb-4 md:mb-6">
             {activeProject.title}
           </h3>
           
-          <p className="text-sm md:text-base font-sans text-white/60 leading-relaxed tracking-wide mb-12">
+          <p className="text-xs sm:text-sm md:text-base font-sans text-white/60 leading-relaxed tracking-wide mb-8 md:mb-12">
             {activeProject.description}
           </p>
         </div>
 
         <div className="flex items-end justify-between border-b border-white/20 pb-4">
-          
-          <div className="flex flex-col gap-2 w-32">
+          <div className="flex flex-col gap-2 w-28 md:w-32">
             <div className="flex gap-1">
               <div className="w-2 h-2 bg-white/20" />
               <div className="w-6 h-2 bg-white/20" />
@@ -223,26 +281,25 @@ const ProjectsPage = () => {
                  style={{ width: `${((activeIdx + 1) / projectsData.length) * 100}%` }}
                />
             </div>
-            <p className="text-[10px] text-[#eaff00] font-sans tracking-widest text-right mt-1">
+            <p className="text-[9px] md:text-[10px] text-[#eaff00] font-sans tracking-widest text-right mt-1">
               0{activeIdx + 1} / 0{projectsData.length}
             </p>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-3 md:gap-4">
             <button 
               onClick={() => changeProject('prev')}
-              className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#00d2ff] transition-colors duration-300"
+              className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#00d2ff] transition-colors duration-300"
             >
-              <ChevronLeft className="w-5 h-5 ml-[-2px]" />
+              <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 ml-[-2px]" />
             </button>
             <button 
               onClick={() => changeProject('next')}
-              className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#00d2ff] transition-colors duration-300"
+              className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#00d2ff] transition-colors duration-300"
             >
-              <ChevronRight className="w-5 h-5 mr-[-2px]" />
+              <ChevronRight className="w-4 h-4 md:w-5 md:h-5 mr-[-2px]" />
             </button>
           </div>
-
         </div>
       </div>
 
