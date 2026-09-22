@@ -5,10 +5,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const galleryData = [
-  { id: 1, location: "EXHIBITION, 2025", img: "/gimg1.jpeg", size: "w-48 md:w-64", yOffset: "-translate-y-16 md:-translate-y-24" },
-  { id: 2, location: "SKYBREACH, 2025", img: "/gimg2.jpeg", size: "w-64 md:w-80", yOffset: "translate-y-20 md:translate-y-28" },
-  { id: 3, location: "PROJECT EVALUATION, 2025", img: "/gimg3.jpeg", size: "w-52 md:w-72", yOffset: "-translate-y-6 md:-translate-y-8" },
-  { id: 4, location: "ALTITUDE ADVENTURE, 2025", img: "/gimg4.jpeg", size: "w-64 md:w-80", yOffset: "translate-y-12 md:translate-y-16" },
+  { id: 1, location: "EXHIBITION 2025", img: "/gimg1.jpeg", size: "w-48 md:w-64", yOffset: "-translate-y-16 md:-translate-y-24" },
+  { id: 2, location: "SKYBREACH 2025", img: "/gimg2.jpeg", size: "w-64 md:w-80", yOffset: "translate-y-20 md:translate-y-28" },
+  { id: 3, location: "PROJECT EVALUATION 2025", img: "/gimg3.jpeg", size: "w-52 md:w-72", yOffset: "-translate-y-6 md:-translate-y-8" },
+  { id: 4, location: "ALTITUDE ADVENTURE 2025", img: "/gimg4.jpeg", size: "w-64 md:w-80", yOffset: "translate-y-12 md:translate-y-16" },
 ];
 
 const Gallery = ({ onNavigate }) => {
@@ -44,7 +44,7 @@ const Gallery = ({ onNavigate }) => {
         
         {galleryData.map((item) => (
           <div key={item.id} className={`flex-shrink-0 flex flex-col ${item.size} ${item.yOffset} pointer-events-auto`}>
-            <p className="text-[9px] font-sans tracking-[0.25em] text-gray-400 uppercase mb-1 ml-1">{item.location}</p>
+            <p className="text-[7px] font-sans tracking-[0.25em] text-gray-400 uppercase mb-1 ml-1">{item.location}</p>
             <div className="w-full aspect-[4/5] overflow-hidden bg-black/50 backdrop-blur-sm border border-white/5 relative group cursor-pointer">
               <img src={item.img} alt={item.location} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" />
             </div>
@@ -63,8 +63,17 @@ const Gallery = ({ onNavigate }) => {
         </div>
 
       </div>
+
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 md:hidden z-30 pointer-events-none opacity-60">
+        <span className="text-[8px] font-sans tracking-[0.3em] text-gray-400 uppercase text-center">Scroll DOWN to Explore</span>
+        
+        <div className="w-[18px] h-[30px] rounded-full border border-white/20 flex justify-center pt-1.5 shadow-[0_0_10px_rgba(255,255,255,0.05)]">
+          <div className="w-1 h-1.5 bg-white/40 rounded-full animate-bounce" />
+        </div>
+      </div>
+
     </section>
   );
 };
 
-export default Gallery;
+export default Gallery; 

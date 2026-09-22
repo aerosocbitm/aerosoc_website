@@ -12,11 +12,11 @@ const AboutUs = () => {
           Know About US:
         </h3>
         
-        <p className="w-full text-center lg:text-left text-gray-400 font-gothamT text-sm sm:text-xl lg:text-xl leading-relaxed mb-5 sm:mb-6">
+        <p className="w-full text-center lg:text-left text-gray-300 font-gothamT text-sm sm:text-xl lg:text-xl leading-relaxed mb-5 sm:mb-6">
           The Aerospace Society of BIT Mesra is a student-driven technical society dedicated to nurturing curiosity and innovation in the fields of aeronautics, astronautics, and space technology.
         </p>
         
-        <p className="w-full text-center lg:text-left text-gray-400 font-gothamT text-lg sm:text-xl lg:text-xl leading-relaxed">
+        <p className="w-full text-center lg:text-left text-gray-300 font-gothamT text-sm sm:text-xl lg:text-xl leading-relaxed">
           Founded with the vision of inspiring the next generation of aerospace engineers and thinkers, the society acts as a launchpad for students passionate about the skies and beyond.   
         </p>
         
