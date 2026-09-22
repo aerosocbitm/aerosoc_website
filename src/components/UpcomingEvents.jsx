@@ -10,7 +10,7 @@ const UpcomingEvents = () => {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      
+
       const scrollTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -107,11 +107,21 @@ const UpcomingEvents = () => {
 
   return (
     <section id="events" ref={sectionRef} className="h-screen w-full overflow-hidden bg-transparent relative border-t border-white/5 pointer-events-none">
-      
+
+        <style>{`
+        @keyframes blinkGreyWhite {
+          0%, 100% { color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
+          50% { color: #6b7280; text-shadow: none; }
+        }
+        .aerocon-blink {
+          animation: blinkGreyWhite 1.5s ease-in-out infinite;
+        }
+      `}</style>
+
       <div ref={trackRef} className="flex h-full w-[200vw] items-center">
-        
-        <div className="w-screen h-full flex flex-col items-center justify-center pt-6 pb-24 md:pt-12 md:pb-40 flex-shrink-0">
-          
+
+        <div className="w-screen h-full flex flex-col items-center justify-center pt-6 pb-24 md:pt-12 md:pb-40 flex-shrink-0 relative">
+
           <div className="text-center mb-12 pointer-events-auto flex flex-col items-center justify-center w-full">
             <div className="aero-element h-56 sm:h-64 md:h-80 lg:h-[28rem] w-full flex items-center justify-center overflow-hidden z-10 relative opacity-0">
               <img 
@@ -121,25 +131,36 @@ const UpcomingEvents = () => {
               />
             </div>
 
-            <div className="aero-element relative z-0 text-accent font-sans tracking-[0.3em] uppercase text-sm sm:text-base md:text-xl lg:text-sm mt-3 sm:mt-4 md:mt-6 lg:mt-4 opacity-0">
-            25th - 27th September 2026
+            <div className="aero-element relative z-10 mt-4 sm:mt-6 md:mt-8 lg:mt-6 opacity-0">
+              <a 
+                href="https://aerocon.vercel.app" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="aerocon-blink px-4 py-2 bg-transparent border-none hover:text-accent font-sans font-semibold text-sm sm:text-base md:text-xl lg:text-lg tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer active:scale-95 inline-block"
+              >
+                AEROCON IS LIVE
+              </a>
             </div>
           </div>
-          
+
+          <div className="aero-element absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 md:hidden z-30 pointer-events-none opacity-0">
+            <span className="text-[8px] font-sans tracking-[0.3em] text-gray-400 uppercase text-center opacity-60">Scroll to Explore</span>
+            
+            <div className="w-[18px] h-[30px] rounded-full border border-white/20 flex justify-center pt-1.5 shadow-[0_0_10px_rgba(255,255,255,0.05)] opacity-60">
+              <div className="w-1 h-1.5 bg-white/40 rounded-full animate-bounce" />
+            </div>
+          </div>
+
         </div>
 
         <div className="sky-panel w-screen h-full flex flex-col items-center justify-center pt-24 pb-24 md:pt-16 md:pb-16 lg:pt-32 lg:pb-40 px-8 md:px-8 lg:px-24 flex-shrink-0">
-          
+
           <div className="sky-header text-center mb-10 md:mb-6 lg:mb-14 pointer-events-auto opacity-0">
             <h2 className="text-5xl md:text-[100px] text-white tracking-wider leading-none">
-              <span 
-                className="font-light font-nasa text-[72px] sm:text-[85px] md:text-[90px]" 
-              >
+              <span className="font-light font-nasa text-[72px] sm:text-[85px] md:text-[90px]">
                 SKY
               </span>{" "}
-              <span 
-                className="text-white font-nasa text-[72px] sm:text-[85px] md:text-[90px] "
-              >
+              <span className="text-white font-nasa text-[72px] sm:text-[85px] md:text-[90px] ">
                 BREACH
               </span>
             </h2>
@@ -150,7 +171,7 @@ const UpcomingEvents = () => {
           </div>
 
           <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6 lg:gap-12 pointer-events-auto items-stretch">
-            
+
             <div className="w-full h-full min-h-[250px] md:min-h-[250px] lg:min-h-[300px] bg-black/50 backdrop-blur-md border border-white/10 p-2 group overflow-hidden">
               <img 
                 src="/skybreach2.jpeg" 
@@ -163,7 +184,7 @@ const UpcomingEvents = () => {
               <div className="text-gray-400 font-sans text-sm md:text-[15px] leading-relaxed">
                 Skybreach is an exciting model rocketry competition designed for enthusiasts and engineers to showcase their technical expertise. Participants will have the opportunity to demonstrate their mastery of aerospace principles, including advanced propulsion systems, flight dynamics, and the complexities of atmospheric re-entry and component recovery. This event invites teams to push the limits of their innovation and engineering capabilities in a challenging, hands-on environment.
               </div>
-              
+
               <div className="flex flex-row gap-6 md:gap-4 lg:gap-8 flex-wrap mt-6 md:mt-4 lg:mt-6">
                 <div className="sky-stats bg-white/5 border-l-4 border-accent p-3 md:p-3 lg:p-4 flex flex-col min-w-[120px] md:min-w-[100px] lg:min-w-[120px]">
                   <span className="text-gray-500 font-sans tracking-[0.2em] uppercase text-[9px] md:text-[9px] lg:text-[10px] mb-1">Footfall</span>
@@ -174,7 +195,7 @@ const UpcomingEvents = () => {
                     0+
                   </span>
                 </div>
-                
+
                 <div className="sky-stats bg-white/5 border-l-4 border-accent p-3 md:p-3 lg:p-4 flex flex-col min-w-[100px]">
                   <span className="text-gray-500 font-sans tracking-[0.2em] uppercase text-[9px] md:text-[9px] lg:text-[10px] mb-1">Teams</span>
                   <span 

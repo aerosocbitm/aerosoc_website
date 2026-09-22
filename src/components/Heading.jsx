@@ -6,7 +6,17 @@ const Heading = ({ onNavigate }) => {
       id="heading" 
       className="w-full min-h-[100svh] lg:min-h-screen flex flex-col justify-start lg:justify-between items-center lg:items-start text-center lg:text-left pointer-events-none px-6 sm:px-8 lg:px-24 2xl:px-32 pt-6 pb-6 relative overflow-hidden"
     >
-      {/* MOBILE/TAB: Top Row (Sponsor Us & Aerocon Link) */}
+      <style>{`
+        @keyframes blinkGreyWhite {
+          0%, 100% { color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
+          50% { color: #6b7280; text-shadow: none; }
+        }
+        .aerocon-blink {
+          animation: blinkGreyWhite 1.5s ease-in-out infinite;
+        }
+      `}</style>
+
+      {/* MOBILE/TAB*/}
       <div className="absolute top-10 left-6 sm:left-8 z-30 lg:hidden pointer-events-auto flex items-center gap-4">
         <a 
           href="https://forms.gle/9XUzMAJEGFcktPsK6" 
@@ -21,25 +31,16 @@ const Heading = ({ onNavigate }) => {
             Thanks!
           </span>
         </a>
-
-        <a 
-          href="https://aerocon.vercel.app" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="px-3 py-2 bg-transparent border-none text-white/90 hover:text-accent font-sans font-medium text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer active:scale-95"
-        >
-          AEROCON IS LIVE
-        </a>
       </div>
 
-      {/* DESKTOP ONLY: Top Row (Aerocon on Left, Links on Right) */}
+      {/* DESKTOP ONLY*/}
       <div className="hidden lg:flex w-full justify-between items-center z-30 pointer-events-auto">
         <div className="heading-anim-btn">
           <a 
             href="https://aerocon.vercel.app" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="px-3 py-2 bg-transparent border-none text-white/90 hover:text-accent font-sans font-medium text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer hover:drop-shadow-[0_0_10px_rgba(0,210,255,0.8)]"
+            className="aerocon-blink px-3 py-2 bg-transparent border-none hover:text-accent font-sans font-medium text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer hover:drop-shadow-[0_0_10px_rgba(0,210,255,0.8)]"
           >
             AEROCON IS LIVE
           </a>
@@ -65,7 +66,6 @@ const Heading = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Main Typography Block */}
       <div className="relative z-10 pointer-events-auto w-full max-w-7xl 2xl:max-w-[1600px] mx-auto mt-32 sm:mt-40 lg:my-auto text-center lg:text-left">
         <h1 className="font-nasa text-6xl sm:text-7xl lg:text-8xl 2xl:text-9xl text-white uppercase tracking-normal leading-none sm:leading-tight mb-4 mx-auto lg:ml-0 lg:pl-0 block w-full">
           AeroSpace <br />
@@ -77,9 +77,21 @@ const Heading = ({ onNavigate }) => {
         <p className="text-gray-400 font-sans tracking-[4px] sm:tracking-[3px] uppercase text-base sm:text-lg lg:text-lg 2xl:text-xl mt-10 sm:mt-6 mx-auto lg:ml-2 pl-0 block w-full">
           Aerosoc | BIT MESRA
         </p>
+
+        {/* MOBILE/TAB ONLY*/}
+        <div className="mt-8 flex justify-center w-full lg:hidden">
+          <a 
+            href="https://aerocon.vercel.app" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="aerocon-blink px-3 py-2 bg-transparent border-none hover:text-accent font-sans font-medium text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer active:scale-95"
+          >
+            AEROCON IS LIVE
+          </a>
+        </div>
       </div>
 
-      {/* MOBILE/TAB: Projects & Workshops buttons */}
+      {/* MOBILE/TAB */}
       <div className="absolute bottom-12 left-0 right-0 z-30 flex lg:hidden justify-center items-center gap-10 pointer-events-auto">
         <button 
           onClick={() => onNavigate && onNavigate('projects')}
@@ -95,7 +107,7 @@ const Heading = ({ onNavigate }) => {
         </button>
       </div>
       
-      {/* DESKTOP ONLY: Sponsor Us button at bottom-left */}
+      {/* DESKTOP ONLY */}
       <div className="hidden lg:flex relative z-10 pointer-events-auto w-full max-w-7xl 2xl:max-w-[1600px] mx-auto justify-start">
         <div className="heading-anim-btn">
           <a 
