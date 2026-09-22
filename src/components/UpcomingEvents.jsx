@@ -116,6 +116,10 @@ const UpcomingEvents = () => {
         .aerocon-blink {
           animation: blinkGreyWhite 1.5s ease-in-out infinite;
         }
+        /* Pauses the blinking animation on hover so the Tailwind hover utilities can cleanly take over */
+        .aerocon-blink:hover {
+          animation: none; 
+        }
       `}</style>
 
       <div ref={trackRef} className="flex h-full w-[200vw] items-center">
@@ -131,15 +135,21 @@ const UpcomingEvents = () => {
               />
             </div>
 
-            <div className="aero-element relative z-10 mt-4 sm:mt-6 md:mt-8 lg:mt-6 opacity-0">
+            {/* Wrapped the button and the new text in a flex-col container so they stack nicely */}
+            <div className="aero-element relative z-10 mt-4 sm:mt-6 md:mt-8 lg:mt-6 opacity-0 flex flex-col items-center gap-3">
               <a 
                 href="https://aerocon.vercel.app" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="aerocon-blink px-4 py-2 bg-transparent border-none hover:text-accent font-sans font-semibold text-sm sm:text-base md:text-xl lg:text-lg tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer active:scale-95 inline-block"
+                className="aerocon-blink relative group bg-transparent border-none hover:text-accent font-sans font-semibold text-sm sm:text-base md:text-xl lg:text-lg tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer active:scale-95 inline-block pb-1"
               >
-                AEROCON IS LIVE
+                AEROCON IS LIVE!!
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
               </a>
+              {/* Added subtle date text below the button */}
+              <p className="text-[9px] sm:text-[10px] md:text-xs font-sans tracking-[0.3em] text-white/40 uppercase">
+                25th - 27th September 2026
+              </p>
             </div>
           </div>
 

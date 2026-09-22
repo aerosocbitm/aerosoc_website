@@ -14,9 +14,13 @@ const Heading = ({ onNavigate }) => {
         .aerocon-blink {
           animation: blinkGreyWhite 1.5s ease-in-out infinite;
         }
+        /* Pauses the blinking animation on hover so the Tailwind hover utilities can cleanly take over */
+        .aerocon-blink:hover {
+          animation: none; 
+        }
       `}</style>
 
-      {/* MOBILE/TAB*/}
+      {/* MOBILE/TAB */}
       <div className="absolute top-10 left-6 sm:left-8 z-30 lg:hidden pointer-events-auto flex items-center gap-4">
         <a 
           href="https://forms.gle/9XUzMAJEGFcktPsK6" 
@@ -33,16 +37,18 @@ const Heading = ({ onNavigate }) => {
         </a>
       </div>
 
-      {/* DESKTOP ONLY*/}
+      {/* DESKTOP ONLY */}
       <div className="hidden lg:flex w-full justify-between items-center z-30 pointer-events-auto">
         <div className="heading-anim-btn">
+          {/* Added 'relative group pb-1' and the animated span below */}
           <a 
             href="https://aerocon.vercel.app" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="aerocon-blink px-3 py-2 bg-transparent border-none hover:text-accent font-sans font-medium text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer hover:drop-shadow-[0_0_10px_rgba(0,210,255,0.8)]"
+            className="aerocon-blink relative group bg-transparent border-none hover:text-accent font-sans font-medium text-sm tracking-widest uppercase transition-colors duration-300 cursor-pointer hover:drop-shadow-[0_0_10px_rgba(0,210,255,0.8)] inline-block pb-1"
           >
-            AEROCON IS LIVE
+            AEROCON IS LIVE!!
+            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
           </a>
         </div>
         
@@ -78,15 +84,17 @@ const Heading = ({ onNavigate }) => {
           Aerosoc | BIT MESRA
         </p>
 
-        {/* MOBILE/TAB ONLY*/}
+        {/* MOBILE/TAB ONLY */}
         <div className="mt-8 flex justify-center w-full lg:hidden">
+          {/* Added 'relative group pb-1' and the animated span below */}
           <a 
             href="https://aerocon.vercel.app" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="aerocon-blink px-3 py-2 bg-transparent border-none hover:text-accent font-sans font-medium text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer active:scale-95"
+            className="aerocon-blink relative group bg-transparent border-none hover:text-accent font-sans font-medium text-xs tracking-widest uppercase transition-colors duration-300 cursor-pointer active:scale-95 inline-block pb-1"
           >
-            AEROCON IS LIVE
+            AEROCON IS LIVE!!
+            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
           </a>
         </div>
       </div>
