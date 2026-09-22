@@ -35,7 +35,6 @@ const ProjectsPage = () => {
   useEffect(() => {
     if (!mountRef.current) return;
 
-    // SHRUNK CANVAS: Scaled down from 600 to 500 for better breathing room
     const W = 500;
     const H = 500;
 
@@ -52,7 +51,6 @@ const ProjectsPage = () => {
     }
     mountRef.current.appendChild(renderer.domElement);
 
-    // CRISPER POINTS: Reduced size from 0.04 to 0.015 so it looks like fine wireframe dust
     const material = new THREE.PointsMaterial({
       color: 0xffffff,
       size: 0.015,
@@ -78,10 +76,8 @@ const ProjectsPage = () => {
           
           model.traverse((child) => {
             if (child.isMesh) {
-              // OUTLINES ONLY: Scans for geometric edges (15-degree threshold) to recreate the hologram blueprint
               let edgeGeom = new THREE.EdgesGeometry(child.geometry, 15);
               
-              // Fallback just in case the drone is perfectly smooth
               if (edgeGeom.attributes.position.count === 0) {
                 edgeGeom = new THREE.WireframeGeometry(child.geometry);
               }
@@ -92,7 +88,6 @@ const ProjectsPage = () => {
             }
           });
 
-          // Absolute Centering
           const box = new THREE.Box3().setFromObject(model);
           const center = box.getCenter(new THREE.Vector3());
           model.position.sub(center); 
@@ -100,7 +95,6 @@ const ProjectsPage = () => {
           const size = box.getSize(new THREE.Vector3());
           const maxDim = Math.max(size.x, size.y, size.z);
           
-          // Scaled to 2.0 to fit perfectly inside the new smaller 500px rings
           const targetScale = maxDim > 0 ? 6.75 / maxDim : 1;
 
           const wrapper = new THREE.Group();
@@ -185,12 +179,12 @@ const ProjectsPage = () => {
   return (
     <section id="projects-page" className="relative w-full h-screen bg-[#050505] overflow-hidden border-t border-white/5 pointer-events-auto">
       
-      <div className="absolute top-0 left-0 right-0 z-50 bg-[#eaff00]/10 border-b border-[#eaff00]/30 py-2.5 px-6 flex items-center justify-center gap-2.5 backdrop-blur-md pointer-events-none">
-        <AlertTriangle className="w-4 h-4 text-[#eaff00] animate-pulse" />
-        <p className="text-[#eaff00] text-[10px] sm:text-xs font-mono font-bold tracking-[0.25em] uppercase">
+      <div className="absolute top-0 left-0 right-0 z-50 bg-accent/10 border-b border-accent/30 py-2.5 px-6 flex items-center justify-center gap-2.5 backdrop-blur-md pointer-events-none">
+        <AlertTriangle className="w-4 h-4 text-accent animate-pulse" />
+        <p className="text-accent text-[10px] sm:text-xs font-mono font-bold tracking-[0.25em] uppercase">
           PAGE UNDER CONSTRUCTION 
         </p>
-        <AlertTriangle className="w-4 h-4 text-[#eaff00] animate-pulse" />
+        <AlertTriangle className="w-4 h-4 text-accent animate-pulse" />
       </div>
 
       <div 
@@ -204,16 +198,9 @@ const ProjectsPage = () => {
         }}
       />
       
-      {/* PUSHED LEFT: Adjusted crosshair math from 45% to 35% */}
       <div className="absolute top-[40%] md:top-1/2 left-0 w-full h-[1px] bg-white/10 z-0 pointer-events-none" />
       <div className="absolute top-0 left-1/2 md:left-[35%] w-[1px] h-full bg-white/10 z-0 pointer-events-none" />
 
-      {/* 
-        PUSHED LEFT & SCALED DOWN:
-        Changed left-[45%] to left-[35%]. 
-        Reduced container size to 500x500.
-        On mobile (before md:), it stays perfectly centered at top-[40%] to avoid the text block.
-      */}
       <div className="absolute top-[40%] md:top-1/2 left-1/2 md:left-[35%] -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] scale-[0.6] sm:scale-75 lg:scale-90 z-20 pointer-events-none flex items-center justify-center">
         
         <div ref={mountRef} className="absolute inset-0 w-[500px] h-[500px] z-10" />
@@ -229,7 +216,6 @@ const ProjectsPage = () => {
 
       </div>
 
-      {/* LEFT UI PANEL */}
       <div className="absolute top-24 md:top-28 left-6 md:left-12 z-30 flex flex-col gap-6 pointer-events-none">
         <div>
           <div className="flex items-center gap-2 text-white/50 mb-2">
@@ -243,12 +229,11 @@ const ProjectsPage = () => {
           <SquareMenu className="text-white w-8 h-8 opacity-80" />
           <div className="absolute -left-3 top-2 flex flex-col gap-1">
              <div className="w-1 h-3 bg-[#00d2ff]" />
-             <div className="w-1 h-2 bg-[#eaff00]" />
+             <div className="w-1 h-2 bg-white" />
           </div>
         </div>
       </div>
 
-      {/* RIGHT UI PANEL: Adjusted max-width and typography to prevent overlapping circles */}
       <div className="absolute top-[80%] md:top-1/2 -translate-y-1/2 right-6 md:right-12 lg:right-24 z-30 w-full max-w-[280px] sm:max-w-[320px] md:max-w-sm">
         
         <div ref={textContainerRef}>
@@ -277,11 +262,11 @@ const ProjectsPage = () => {
             </div>
             <div className="w-full h-[2px] bg-white/20 relative">
                <div 
-                 className="absolute top-0 left-0 h-full bg-[#eaff00] transition-all duration-500 ease-out" 
+                 className="absolute top-0 left-0 h-full bg-accent transition-all duration-500 ease-out" 
                  style={{ width: `${((activeIdx + 1) / projectsData.length) * 100}%` }}
                />
             </div>
-            <p className="text-[9px] md:text-[10px] text-[#eaff00] font-sans tracking-widest text-right mt-1">
+            <p className="text-[9px] md:text-[10px] text-accent font-sans tracking-widest text-right mt-1">
               0{activeIdx + 1} / 0{projectsData.length}
             </p>
           </div>

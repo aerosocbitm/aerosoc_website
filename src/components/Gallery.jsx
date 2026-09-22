@@ -17,7 +17,6 @@ const Gallery = ({ onNavigate }) => {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // DYNAMIC CALCULATION: Reads live scrollWidth inside the function so it never uses stale dimensions
       const getScrollDistance = () => {
         return trackRef.current ? trackRef.current.scrollWidth - window.innerWidth : 0;
       };
@@ -41,17 +40,12 @@ const Gallery = ({ onNavigate }) => {
   return (
     <section id="gallery" ref={sectionRef} className="h-screen overflow-hidden bg-transparent relative border-t border-white/5 flex items-center pointer-events-none">
       
-      {/* 
-        - Desktop (md:px-48 md:gap-56): 100% untouched original spacing.
-        - Mobile (pl-16 pr-2 gap-24): Preserves left padding/gap but removes dead right padding after the quote.
-      */}
       <div ref={trackRef} className="flex h-full items-center pb-20 md:pb-30 pl-16 pr-2 md:px-48 gap-24 md:gap-56 w-max transform-gpu">
         
         {galleryData.map((item) => (
           <div key={item.id} className={`flex-shrink-0 flex flex-col ${item.size} ${item.yOffset} pointer-events-auto`}>
-            <p className="text-[9px] font-sans tracking-[0.25em] text-gray-500 uppercase mb-3 ml-1">{item.location}</p>
+            <p className="text-[9px] font-sans tracking-[0.25em] text-gray-400 uppercase mb-1 ml-1">{item.location}</p>
             <div className="w-full aspect-[4/5] overflow-hidden bg-black/50 backdrop-blur-sm border border-white/5 relative group cursor-pointer">
-              {/* Grayscale removed completely — renders in full color on both desktop and phone */}
               <img src={item.img} alt={item.location} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" />
             </div>
           </div>
@@ -61,7 +55,7 @@ const Gallery = ({ onNavigate }) => {
           <h3 className="text-xl md:text-2xl font-sans text-white leading-relaxed font-light">
             "One small step for man, <span className="text-accent italic font-normal">one giant leap for mankind."</span>
           </h3>
-          <p className="mt-4 text-[10px] text-gray-400 font-sans tracking-[0.2em] uppercase">Neil Armstrong</p>
+          <p className="mt-4 text-[10px] text-gray-300 font-sans tracking-[0.2em] uppercase">Neil Armstrong</p>
         </div>
 
         <div className="hidden md:flex flex-shrink-0 w-[45vw] items-center justify-end pointer-events-auto relative z-50">

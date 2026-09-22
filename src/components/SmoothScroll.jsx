@@ -5,22 +5,20 @@ const SmoothScroll = ({ children }) => {
   const lenisRef = useRef(null);
 
   useEffect(() => {
-    // Initialize Lenis
     const lenis = new Lenis({
-      duration: 1.2, // Adjust for scroll speed (higher = slower/smoother)
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing curve
+      duration: 1.2, 
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
       mouseMultiplier: 1,
-      smoothTouch: false, // Usually best to keep native touch scrolling on mobile
+      smoothTouch: false, 
       touchMultiplier: 2,
       infinite: false,
     });
 
     lenisRef.current = lenis;
 
-    // Use requestAnimationFrame to continuously update Lenis
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -28,7 +26,6 @@ const SmoothScroll = ({ children }) => {
 
     requestAnimationFrame(raf);
 
-    // Cleanup on unmount
     return () => {
       lenis.destroy();
     };

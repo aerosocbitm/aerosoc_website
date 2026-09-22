@@ -102,28 +102,22 @@ const Loader = ({ onFlash, onWipeComplete, onComplete }) => {
             </filter>
           </defs>
 
-          {/* Faint Background Waves */}
           <path d="M-100 200 C 400 100, 1000 600, 2020 300" stroke="rgba(255,255,255,0.03)" strokeWidth="2" />
           <path d="M-100 800 C 500 900, 1200 400, 2020 800" stroke="rgba(255,255,255,0.03)" strokeWidth="2" />
           <path d="M-100 1000 C 300 800, 800 1100, 1500 900" stroke="rgba(255,255,255,0.03)" strokeWidth="2" />
 
-          {/* Left Circuit Traces */}
           <g stroke="rgba(255, 255, 255, 0.12)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            {/* Top Trace */}
             <path d="M-50 450 H 300 L 400 550 H 800" />
             <circle cx="800" cy="550" r="8" fill="transparent" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="3" />
 
-            {/* Middle Trace */}
             <path d="M-50 520 H 200 L 300 620 H 700" />
             <circle cx="700" cy="620" r="8" fill="transparent" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="3" />
 
-            {/* Bottom Trace with Cyan Glowing Node */}
             <path d="M-50 590 H 400 L 450 640 H 600 L 650 690 H 850" />
             <circle cx="850" cy="690" r="9" fill="#00d2ff" stroke="none" filter="url(#cyanGlow)" />
             <circle cx="850" cy="690" r="4" fill="#ffffff" stroke="none" />
           </g>
 
-          {/* Bottom Left Constellation/Hex Web */}
           <g stroke="rgba(255, 255, 255, 0.05)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M 100 950 L 250 880 L 300 1050 Z" />
             <path d="M 250 880 L 400 920 L 300 1050" />
@@ -143,7 +137,6 @@ const Loader = ({ onFlash, onWipeComplete, onComplete }) => {
               <img src="/aerocon26-logo.png" alt="Flagship Event" className="w-full h-full object-contain object-bottom opacity-100" />
             </div>
 
-            {/* CHANGED: Added pl-4 sm:pl-6 md:pl-0 to nudge this block right on mobile without affecting desktop */}
             <div className="w-full flex flex-col items-start gap-2 -mt-2 md:-mt-6 pl-4 sm:pl-6 md:pl-0">
               <div className="flex items-center gap-2.5">
                 <svg className="w-3.5 h-3.5 text-[#ffe600] fill-current" viewBox="0 0 24 24">

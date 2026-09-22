@@ -90,8 +90,8 @@ const SplashTransition = ({ targetView, onMidpoint, onComplete }) => {
             AEROSPACE <span className="opacity-60">SOCIETY</span>
           </span>
           <span className="text-black/70 font-mono text-[10px] tracking-[0.3em] uppercase mt-1">
-            {targetView === 'roster'
-              ? 'DEPLOYING ROSTER'
+            {targetView === 'team'
+              ? 'ACCESSING TEAMS'
               : targetView === 'archive'
               ? 'ACCESSING ARCHIVES'
               : targetView === 'projects'

@@ -122,7 +122,7 @@ const UpcomingEvents = () => {
             </div>
 
             <div className="aero-element relative z-0 text-accent font-sans tracking-[0.3em] uppercase text-sm sm:text-base md:text-xl lg:text-sm mt-3 sm:mt-4 md:mt-6 lg:mt-4 opacity-0">
-              Flagship Event • Coming Soon
+            25th - 27th September 2026
             </div>
           </div>
           
@@ -138,7 +138,7 @@ const UpcomingEvents = () => {
                 SKY
               </span>{" "}
               <span 
-                className="text-accent font-nasa text-[72px] sm:text-[85px] md:text-[90px]"
+                className="text-white font-nasa text-[72px] sm:text-[85px] md:text-[90px] "
               >
                 BREACH
               </span>

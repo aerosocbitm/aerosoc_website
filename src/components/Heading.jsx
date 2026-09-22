@@ -4,11 +4,10 @@ const Heading = ({ onNavigate }) => {
   return (
     <section 
       id="heading" 
-      // CHANGED: All md: classes changed to lg: so tablets keep the mobile view
       className="w-full min-h-[100svh] lg:min-h-screen flex flex-col justify-start lg:justify-between items-center lg:items-start text-center lg:text-left pointer-events-none px-6 sm:px-8 lg:px-24 2xl:px-32 pt-6 pb-6 relative overflow-hidden"
     >
-      {/* MOBILE/TAB: Sponsor Us button — Pushed down to top-10 to clear browser UI */}
-      <div className="absolute top-10 left-6 sm:left-8 z-30 lg:hidden pointer-events-auto">
+      {/* MOBILE/TAB: Top Row (Sponsor Us & Aerocon Link) */}
+      <div className="absolute top-10 left-6 sm:left-8 z-30 lg:hidden pointer-events-auto flex items-center gap-4">
         <a 
           href="https://forms.gle/9XUzMAJEGFcktPsK6" 
           target="_blank" 
@@ -22,33 +21,55 @@ const Heading = ({ onNavigate }) => {
             Thanks!
           </span>
         </a>
+
+        <a 
+          href="https://aerocon.vercel.app" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="px-3 py-2 bg-transparent border-none text-white/90 hover:text-accent font-sans font-medium text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer active:scale-95"
+        >
+          AEROCON IS LIVE
+        </a>
       </div>
 
-      {/* DESKTOP ONLY: Top Right Links */}
-      <div className="hidden lg:flex w-full justify-end items-center gap-4 z-30 pointer-events-auto">
+      {/* DESKTOP ONLY: Top Row (Aerocon on Left, Links on Right) */}
+      <div className="hidden lg:flex w-full justify-between items-center z-30 pointer-events-auto">
         <div className="heading-anim-btn">
-          <button 
-            onClick={() => onNavigate && onNavigate('projects')}
+          <a 
+            href="https://aerocon.vercel.app" 
+            target="_blank" 
+            rel="noopener noreferrer"
             className="px-3 py-2 bg-transparent border-none text-white/90 hover:text-accent font-sans font-medium text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer hover:drop-shadow-[0_0_10px_rgba(0,210,255,0.8)]"
           >
-            Projects
-          </button>
+            AEROCON IS LIVE
+          </a>
         </div>
-        <div className="heading-anim-btn">
-          <button 
-            onClick={() => onNavigate && onNavigate('workshops')}
-            className="px-3 py-2 bg-transparent border-none text-white/90 hover:text-accent font-sans font-medium text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer hover:drop-shadow-[0_0_10px_rgba(0,210,255,0.8)]"
-          >
-            Workshops
-          </button>
+        
+        <div className="flex items-center gap-4">
+          <div className="heading-anim-btn">
+            <button 
+              onClick={() => onNavigate && onNavigate('projects')}
+              className="px-3 py-2 bg-transparent border-none text-white/90 hover:text-accent font-sans font-medium text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer hover:drop-shadow-[0_0_10px_rgba(0,210,255,0.8)]"
+            >
+              Projects
+            </button>
+          </div>
+          <div className="heading-anim-btn">
+            <button 
+              onClick={() => onNavigate && onNavigate('workshops')}
+              className="px-3 py-2 bg-transparent border-none text-white/90 hover:text-accent font-sans font-medium text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer hover:drop-shadow-[0_0_10px_rgba(0,210,255,0.8)]"
+            >
+              Workshops
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Main Typography Block */}
       <div className="relative z-10 pointer-events-auto w-full max-w-7xl 2xl:max-w-[1600px] mx-auto mt-32 sm:mt-40 lg:my-auto text-center lg:text-left">
-        <h1 className="font-azonix text-6xl sm:text-7xl lg:text-8xl 2xl:text-9xl text-white uppercase tracking-normal leading-none sm:leading-tight mb-4 mx-auto lg:ml-0 lg:pl-0 block w-full">
+        <h1 className="font-nasa text-6xl sm:text-7xl lg:text-8xl 2xl:text-9xl text-white uppercase tracking-normal leading-none sm:leading-tight mb-4 mx-auto lg:ml-0 lg:pl-0 block w-full">
           AeroSpace <br />
-          <span className="text-accent font-azonix inline-block mt-3 lg:mt-0 text-transparent [-webkit-text-stroke:2px_#48E4FF]">
+          <span className="text-accent font-nasa inline-block mt-3 lg:mt-0 text-transparent [-webkit-text-stroke:2px_#48E4FF]">
             SOCIETY
           </span>
         </h1>
@@ -73,7 +94,7 @@ const Heading = ({ onNavigate }) => {
           Workshops
         </button>
       </div>
-
+      
       {/* DESKTOP ONLY: Sponsor Us button at bottom-left */}
       <div className="hidden lg:flex relative z-10 pointer-events-auto w-full max-w-7xl 2xl:max-w-[1600px] mx-auto justify-start">
         <div className="heading-anim-btn">

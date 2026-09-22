@@ -1,6 +1,7 @@
 /* 1. Import the Google Fonts (Inter, Space Grotesk, and Orbitron) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Emilys+Candy&family=Hind:wght@300;400;500;600;700&family=Michroma&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pliant:ital,wght@0,100..900;1,100..900&family=Rajdhani:wght@300;400;500;600;700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tenor+Sans&display=swap');
 @import "tailwindcss";
 
 @font-face {
@@ -33,6 +34,22 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Gotham Thin';
+  src: url('/fonts/Gotham Thin.otf') format('opentype'),
+  url('/fonts/Gotham Thin.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham Regular';
+  src: url('/fonts/Gotham Regular.otf') format('opentype'),
+  url('/fonts/Gotham Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 html {
   font-size: 14px; 
@@ -49,6 +66,9 @@ html {
   --color-surface: #171717;
   --color-accent: #48E4FF;
   
+  --font-gothamR: "Gotham Regular", sans-serif;
+  --font-gothamT: "Gotham Thin", sans-serif;
+  --font-head: "Bebas+Neue", sans-serif;
   --font-sans: "Inter", sans-serif;
   --font-display: "Poppins", sans-serif;
   --font-orbitron: "Orbitron", sans-serif;

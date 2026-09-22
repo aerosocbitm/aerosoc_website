@@ -40,7 +40,6 @@ const HorizontalSlider = ({ id, title, data, category }) => {
 
         {data.map((item, index) => (
           <div key={index} className="w-screen h-full flex items-center justify-center px-8 md:px-24 flex-shrink-0">
-            {/* The physical card is made clickable with pointer-events-auto */}
             <div className="pointer-events-auto w-full max-w-4xl min-h-[450px] bg-black/50 backdrop-blur-md border border-white/10 relative group transition-colors duration-500 overflow-hidden flex flex-col justify-end p-12">
               <div className="absolute inset-0 bg-transparent z-0">
                 {item.img && <img src={item.img} alt={item.title} className="w-full h-full object-cover opacity-40 group-hover:opacity-60 grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />}

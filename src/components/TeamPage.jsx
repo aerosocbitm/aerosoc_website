@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
-const RosterPage = ({ onNavigate }) => {
+const TeamPage = ({ onNavigate }) => {
   const containerRef = useRef(null);
 
   const facultyAdvisor = {
@@ -41,16 +41,19 @@ const RosterPage = ({ onNavigate }) => {
     { name: "Shrishti", role: "Executive Body Member" },
     { name: "Anurag Kumar Verma", role: "Executive Body Member" },
     { name: "Anshal", role: "Executive Body Member" },
+    { name: "Akshay Gautam", role: "Executive Body Member" },
+    { name: "Renikson Yash Ekka", role: "Executive Body Member" },
+    { name: "Anikait Sen Gupta", role: "Executive Body Member" },
   ];
 
   const webDesignTeam = [
     { name: "Anikait Sen Gupta", role: "Web Dev Team", img: "/wedev1.jpeg" },
-    { name: "Renikson Ekka", role: "Web Dev Team", img: "" },
+    { name: "Renikson Yash Ekka", role: "Web Dev Team", img: "/wedev2.jpeg" },
   ];
 
   const k24Members = [
     "Annika Singh", "Harsh Raj Pandey", "Aditya Prakash",
-    "Shubhangi Kashyap", "Sourabh Kumar", "Anurag Kumar Verma", "Akshay Gautam",
+    "Shubhangi Kashyap", "Anurag Kumar Verma", "Akshay Gautam",
     "Anikait Sen Gupta", "Renikson Yash Ekka", "Anshal Kumar",
     "Aryan Shankar", "Himanshu Prasad"
   ];
@@ -61,13 +64,17 @@ const RosterPage = ({ onNavigate }) => {
     "Abhishek Kumar Singh", "Aaditya Setu", "Nikhil Kumar Keshri", "Vasu Suneja",
     "Arijit Dolai", "Khushi Pandey", "Raghav Gaur", "Souptik Mondal", "Avnish Raj",
     "Sachin Kumar Sahu", "Arpita", "Ayushman Sharma", "Shourya Shekhar",
-    "Pranav Saurabh", "Kanak Ratna", "Kartikeya Narayan", "Rishabh Tiwari", "Treta Singh"
+    "Pranav Saurabh", "Kanak Ratna", "Kartikeya Narayan", "Rishabh Tiwari", "Treta Singh",
+    "Rathod Chatrapathi", "Sanjana Tiwary", "Saubhagya Sharma", "Shourya Prabhakar", "Shruti Kumari",
+    "Swastik Singh", "Utkarsh Neelam", "Yaagya Bahety", "Archis Samanta", "Dibyadyuti Biswas", "Garv Kumar",
+    "Shravan Bagul", "Tanmay Sardar", "Aheli Ray", "B.Ganesh", "Avinash Kumar", "Ayush Hati", "Divya Rai",
+    "Jubeen", "Lavanya Kumari", "Md Yasir", "Param Sarita", "Parth Kesari"
   ];
 
   useEffect(() => {
     let ctx = gsap.context(() => {
       gsap.fromTo(
-        '.roster-card',
+        '.Team-card',
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.8, stagger: 0.05, ease: 'power3.out' }
       );
@@ -93,7 +100,7 @@ const RosterPage = ({ onNavigate }) => {
       </div>
 
       <div className="max-w-7xl mx-auto mb-24 flex flex-col items-center">
-        <div className="roster-card p-8 rounded-3xl bg-white/[0.04] border border-accent/40 hover:border-accent transition-all duration-500 flex flex-col items-center text-center max-w-sm w-full group">
+        <div className="Team-card p-8 rounded-3xl bg-white/[0.04] border border-accent/40 hover:border-accent transition-all duration-500 flex flex-col items-center text-center max-w-sm w-full group">
           <div className="w-32 h-32 rounded-full overflow-hidden bg-white/5 border-2 border-accent/50 mb-6 flex items-center justify-center">
             {facultyAdvisor.img ? (
               <img src={facultyAdvisor.img} alt={facultyAdvisor.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -118,7 +125,7 @@ const RosterPage = ({ onNavigate }) => {
           {coreLeads.map((member, i) => (
             <div
               key={i}
-              className="roster-card p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-accent/50 transition-all duration-500 flex items-center gap-6 group"
+              className="Team-card p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-accent/50 transition-all duration-500 flex items-center gap-6 group"
             >
               <div className="w-16 h-16 rounded-full overflow-hidden bg-white/5 border border-white/20 flex-shrink-0 flex items-center justify-center">
                 {member.img ? (
@@ -141,7 +148,7 @@ const RosterPage = ({ onNavigate }) => {
           {additionalExeBody.map((member, i) => (
             <div
               key={i}
-              className="roster-card p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-300"
+              className="Team-card p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-300"
             >
               <h3 className="text-sm font-display font-bold uppercase tracking-wide text-white">{member.name}</h3>
               <p className="text-gray-400 text-xs font-sans uppercase tracking-widest mt-1">{member.role}</p>
@@ -158,7 +165,7 @@ const RosterPage = ({ onNavigate }) => {
           {k24Members.map((name, i) => (
             <div
               key={i}
-              className="roster-card py-3 px-4 rounded-lg bg-white/[0.015] border border-white/5 text-gray-300 font-sans text-xs uppercase tracking-wider hover:text-white hover:border-white/20 transition-all"
+              className="Team-card py-3 px-4 rounded-lg bg-white/[0.015] border border-white/5 text-gray-300 font-sans text-xs uppercase tracking-wider hover:text-white hover:border-white/20 transition-all"
             >
               {name}
             </div>
@@ -174,7 +181,7 @@ const RosterPage = ({ onNavigate }) => {
           {k25Members.map((name, i) => (
             <div
               key={i}
-              className="roster-card py-3 px-4 rounded-lg bg-white/[0.015] border border-white/5 text-gray-300 font-sans text-xs uppercase tracking-wider hover:text-white hover:border-white/20 transition-all"
+              className="Team-card py-3 px-4 rounded-lg bg-white/[0.015] border border-white/5 text-gray-300 font-sans text-xs uppercase tracking-wider hover:text-white hover:border-white/20 transition-all"
             >
               {name}
             </div>
@@ -190,7 +197,7 @@ const RosterPage = ({ onNavigate }) => {
           {webDesignTeam.map((member, i) => (
             <div
               key={i}
-              className="roster-card p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-accent/50 transition-all duration-500 flex items-center gap-6 group"
+              className="Team-card p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-accent/50 transition-all duration-500 flex items-center gap-6 group"
             >
               <div className="w-16 h-16 rounded-full overflow-hidden bg-white/5 border border-white/20 flex-shrink-0 flex items-center justify-center">
                 {member.img ? (
@@ -213,4 +220,4 @@ const RosterPage = ({ onNavigate }) => {
   );
 };
 
-export default RosterPage;
+export default TeamPage;

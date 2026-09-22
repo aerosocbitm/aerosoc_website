@@ -15,7 +15,7 @@ import Gallery from './components/Gallery';
 import Socials from './components/Socials';
 import Footer from './components/Footer';
 
-import RosterPage from './components/RosterPage';
+import TeamPage from './components/TeamPage';
 import ArchivePage from './components/ArchivePage';
 import SplashTransition from './components/SplashTransition';
 
@@ -26,7 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const VIEW_TO_PATH = {
   home: '/',
-  roster: '/team',
+  team: '/team',
   archive: '/gallery',
   projects: '/projects',
   workshops: '/workshops',
@@ -34,7 +34,7 @@ const VIEW_TO_PATH = {
 
 const PATH_TO_VIEW = {
   '/': 'home',
-  '/team': 'roster',
+  '/team': 'team',
   '/gallery': 'archive',
   '/projects': 'projects',
   '/workshops': 'workshops',
@@ -72,7 +72,7 @@ function App() {
   const handleNavigate = (targetPage, isPopState = false) => {
     if (targetPage === currentView) return;
 
-    if (targetPage === 'roster') {
+    if (targetPage === 'team') {
       lastSectionRef.current = '#team';
     } else if (targetPage === 'archive') {
       lastSectionRef.current = '#gallery';
@@ -103,7 +103,6 @@ function App() {
 
   useEffect(() => {
     if (currentView === 'home') {
-      // Delay to let React apply 'display: block' so heights aren't evaluated as 0px
       const timer = setTimeout(() => {
         ScrollTrigger.refresh(true);
         window.dispatchEvent(new Event('resize'));
@@ -188,7 +187,6 @@ function App() {
         );
       }
 
-      // Proxy object handling the morph states
       const proxy = { morphState: isDirectSubpageLoad ? 1.0 : 0.0 };
       let introTween = null;
 
@@ -218,7 +216,6 @@ function App() {
             scrub: true,
             onUpdate: applyMorphState,
             onEnter: () => {
-              // Immediately kill the intro tween if user attempts to scroll early
               if (introTween) {
                 introTween.kill();
                 introTween = null;
@@ -294,8 +291,8 @@ function App() {
 
       {mountWebsite && (
         <>
-          {currentView === 'roster' && (
-            <RosterPage onNavigate={handleNavigate} />
+          {currentView === 'team' && (
+            <TeamPage onNavigate={handleNavigate} />
           )}
 
           {currentView === 'archive' && (

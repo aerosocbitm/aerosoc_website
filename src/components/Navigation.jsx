@@ -7,7 +7,7 @@ const navLinks = [
   { name: 'Events', id: 'events', icon: Calendar },
   { name: 'Workshops', id: 'workshops', icon: Cpu, isPage: true, targetView: 'workshops' },
   { name: 'Projects', id: 'projects', icon: Rocket, isPage: true, targetView: 'projects' },
-  { name: 'Team', id: 'team', icon: Users, isPage: true, targetView: 'roster' },
+  { name: 'Team', id: 'team', icon: Users, isPage: true, targetView: 'team' },
   { name: 'Gallery', id: 'gallery', icon: Aperture, isPage: true, targetView: 'archive' },
   { name: 'Socials', id: 'socials', icon: Share2 }
 ];
@@ -60,8 +60,6 @@ const Navigation = ({ onGoHome, onNavigate }) => {
 
   return (
     <>
-      {/* MOBILE/TAB TOP BAR WITH MINIMALIST 3-LINE ICON */}
-      {/* CHANGED: md:hidden -> lg:hidden, top-6 -> top-10 to align with Sponsor Us */}
       <div className="fixed top-10 right-6 z-[201] flex lg:hidden items-center pointer-events-auto">
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -80,16 +78,14 @@ const Navigation = ({ onGoHome, onNavigate }) => {
         </button>
       </div>
 
-      {/* MOBILE/TAB FULL-SCREEN OVERLAY MENU */}
-      {/* CHANGED: md:hidden -> lg:hidden */}
       <div
         className={`fixed inset-0 bg-black/95 backdrop-blur-2xl z-[200] flex lg:hidden flex-col items-center justify-center px-6 transition-all duration-500 pointer-events-auto ${
           mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
         }`}
       >
         <div className="flex items-center gap-3 mb-10">
-          <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20 flex items-center justify-center">
-            <img src="/aerosoc logo.png" alt="AeroSoc Logo" className="w-full h-full object-cover" />
+          <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center">
+            <img src="/aerosoc logo2.png" alt="AeroSoc Logo" className="w-full h-full object-cover" />
           </div>
           <span className="text-white font-display font-bold tracking-[0.2em] text-sm uppercase">
             AEROSOC
@@ -115,8 +111,6 @@ const Navigation = ({ onGoHome, onNavigate }) => {
         </nav>
       </div>
 
-      {/* DESKTOP SIDEBAR NAVIGATION */}
-      {/* CHANGED: hidden md:flex -> hidden lg:flex */}
       <div 
         className="hidden lg:flex fixed top-0 right-0 h-screen z-[200] flex-col py-8 bg-transparent backdrop-blur-sm border-l border-white/5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
         onMouseEnter={() => setIsHovered(true)}
@@ -128,8 +122,8 @@ const Navigation = ({ onGoHome, onNavigate }) => {
             <span className={`text-white font-display font-bold tracking-[0.2em] text-xs uppercase overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] text-right whitespace-nowrap ${isHovered ? 'w-24 opacity-100' : 'w-0 opacity-0'}`}>
               AEROSOC
             </span>
-            <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20 bg-surface flex-shrink-0 flex items-center justify-center">
-              <img src="/aerosoc logo.png" alt="AeroSoc Logo" className="w-full h-full object-cover opacity-100" />
+            <div className="w-12 h-12 overflow-hidden flex-shrink-0 flex items-center justify-center">
+              <img src="/aerosoc logo2.png" alt="AeroSoc Logo" className="w-full h-full object-cover opacity-100" />
             </div>
           </div>
         </div>
