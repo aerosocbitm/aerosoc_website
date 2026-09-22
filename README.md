@@ -16,26 +16,26 @@ Birla Institute of Technology, Mesra
 
 ### Core Framework
 
-* **[React 18](https://react.dev/?utm_source=gemini):** UI component architecture and state management.
-* **[Vite](https://vitejs.dev/?utm_source=gemini):** Lightning-fast build tool and development server.
+* **[React 18](https://react.dev):** UI component architecture and state management.
+* **[Vite](https://vitejs.dev):** Lightning-fast build tool and development server.
 
-### 3D Engine & Graphics
+## 3D Engine & Graphics
 
-* **[Three.js](https://threejs.org/?utm_source=gemini):** Core WebGL engine for 3D scene creation, camera math, and rendering.
+* **[Three.js](https://threejs.org):** Core WebGL engine for 3D scene creation, camera math, and rendering.
 * **GLTFLoader:** Extension used to parse and inject compressed 3D models into the scene.
 
-### Animation & Physics
+## Animation & Physics
 
-* **[GSAP (GreenSock)](https://greensock.com/gsap/?utm_source=gemini):** Industry-standard animation library for timeline sequencing and spatial transitions.
-* **[Lenis](https://lenis.studiofreight.com/?utm_source=gemini):** Lightweight smooth-scroll API.
+* **[GSAP (GreenSock)](https://greensock.com/gsap):** Industry-standard animation library for timeline sequencing and spatial transitions.
+* **[Lenis](https://lenis.studiofreight.com):** Lightweight smooth-scroll API.
 
-### Styling
+## Styling
 
-* **[Tailwind CSS](https://tailwindcss.com/?utm_source=gemini):** Utility-first CSS framework for rapid, responsive UI development.
+* **[Tailwind CSS](https://tailwindcss.com):** Utility-first CSS framework for rapid, responsive UI development.
 
 ---
 
-## 🧩 Core Architecture & Components
+## Core Architecture & Components
 
 The application is heavily modularized. Here are the primary structural components:
 
@@ -48,7 +48,7 @@ The application is heavily modularized. Here are the primary structural componen
 
 ---
 
-## 📐 3D Asset Pipeline & Specifications
+## 3D Asset Pipeline & Specifications
 
 If you are adding new prototypes to the `projectsData` array, ensure the 3D assets follow these strict specifications:
 
@@ -59,7 +59,7 @@ If you are adding new prototypes to the `projectsData` array, ensure the 3D asse
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 When contributing to this repository, please ensure that any new UI components adhere strictly to the Tailwind utility pipeline. Do not introduce raw `.css` files unless absolutely necessary for complex keyframe animations that GSAP cannot handle efficiently.
 
@@ -67,5 +67,5 @@ For 3D integrations, avoid instantiating multiple `THREE.WebGLRenderer` contexts
 
 
 ## Developers
-Anikait Sen Gupta
+Anikait Sen Gupta, 
 Renikson Yash Ekka
