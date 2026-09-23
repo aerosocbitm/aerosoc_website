@@ -119,7 +119,7 @@ const Team = ({ onNavigate }) => {
         <button
           type="button"
           onClick={() => {
-            if (onNavigate) onNavigate('roster');
+            if (onNavigate) onNavigate('team');
           }}
           className="px-6 py-3 border-2 border-white/20 text-white hover:border-accent hover:text-accent hover:bg-accent/10 font-display font-bold text-sm tracking-widest transition-all duration-300 cursor-pointer pointer-events-auto"
         >

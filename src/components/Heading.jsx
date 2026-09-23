@@ -38,9 +38,8 @@ const Heading = ({ onNavigate }) => {
       </div>
 
       {/* DESKTOP ONLY */}
-      <div className="hidden lg:flex w-full justify-between items-center z-30 pointer-events-auto">
+      <div className="hidden lg:flex w-full max-w-7xl 2xl:max-w-[1600px] mx-auto justify-between items-center z-30 pointer-events-auto">
         <div className="heading-anim-btn">
-          {/* Added 'relative group pb-1' and the animated span below */}
           <a 
             href="https://aerocon26.aerosocbitm.in" 
             target="_blank" 
@@ -86,7 +85,6 @@ const Heading = ({ onNavigate }) => {
 
         {/* MOBILE/TAB ONLY */}
         <div className="mt-8 flex justify-center w-full lg:hidden">
-          {/* Added 'relative group pb-1' and the animated span below */}
           <a 
             href="https://aerocon26.aerosocbitm.in" 
             target="_blank" 
