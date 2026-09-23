@@ -175,7 +175,7 @@ const Loader = ({ onFlash, onWipeComplete, onComplete }) => {
             </span>
           </div>
           <span className="text-white text-[8px] sm:text-[9px] md:text-[10px] tracking-[0.25em] uppercase opacity-60 font-mono mt-4">
-            Initializing Environment...
+            Initializing...
           </span>
         </div>
       </div>

@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import * as THREE from 'three';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const SpaceMorphBackground = forwardRef(({ active = false }, ref) => {
   const mountRef = useRef(null);
   const materialRef = useRef(null);
+  
+  const activeRef = useRef(active);
+  useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
 
   useImperativeHandle(ref, () => ({
     setMorphState: (value) => {
@@ -296,20 +302,17 @@ const SpaceMorphBackground = forwardRef(({ active = false }, ref) => {
       void main() {
         mat3 rotMat = getRotationMatrix(uMouseRot);
         
-        // SATELLITE: Shifted to Y = -3.0 on mobile so it sits safely in the bottom half of ALL phone screens
         vec3 satBounce = mix(
           vec3(12.0, sin(uTime * 1.5) * 0.7, 0.0),
           vec3(0.0, -3.0 + sin(uTime * 1.5) * 0.5, 0.0),
           uIsMobile
         );
-        // EARTH: Sits at Y = -5.8 on mobile below the About Us text
         vec3 earthBounce = mix(
           vec3(-12.0, sin(uTime * 1.2 + 1.0) * 0.8, 0.0),
           vec3(0.0, -5.8 + sin(uTime * 1.2 + 1.0) * 0.5, 0.0),
           uIsMobile
         );
 
-        // Scaled to 0.55 on mobile to guarantee no clipping on tall or short viewports
         float shapeScale = mix(1.0, 0.55, uIsMobile);
 
         vec3 rotatedSat = ((rotMat * aSat) * shapeScale) + satBounce;
@@ -337,7 +340,6 @@ const SpaceMorphBackground = forwardRef(({ active = false }, ref) => {
         vec3 finalPos = basePos + (noise * noiseIntensity);
         
         float dist = distance(finalPos, uPointer);
-        // DISABLED ON MOBILE: Repulsion force only runs on desktop (uIsMobile < 0.5)
         if (dist < 4.0 && uIsMobile < 0.5) {
             vec3 dir = normalize(finalPos - uPointer);
             float force = smoothstep(4.0, 0.0, dist);
@@ -449,12 +451,22 @@ const SpaceMorphBackground = forwardRef(({ active = false }, ref) => {
     };
     window.addEventListener('resize', onResize);
 
+    setTimeout(() => {
+      if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+      }
+    }, 100);
+
     const clock = new THREE.Clock();
     let animationFrameId;
 
     function animate() {
       const delta = clock.getDelta();
-      if (active) material.uniforms.uTime.value += delta;
+      
+      // BUG FIX: Checking active via Ref instead of dependency array
+      if (activeRef.current) {
+         material.uniforms.uTime.value += delta;
+      }
 
       material.uniforms.uPointer.value.lerp(mouse3D, 0.1);
       currentRotation.lerp(targetRotation, 0.05);
@@ -470,6 +482,7 @@ const SpaceMorphBackground = forwardRef(({ active = false }, ref) => {
       window.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('resize', onResize);
+      
       cancelAnimationFrame(animationFrameId);
       if (mountRef.current && renderer.domElement) {
         mountRef.current.removeChild(renderer.domElement);
@@ -478,8 +491,7 @@ const SpaceMorphBackground = forwardRef(({ active = false }, ref) => {
       material.dispose();
       renderer.dispose();
     };
-  }, [active]); 
-
+  }, []); 
   return <div ref={mountRef} className="fixed inset-0 z-0 pointer-events-auto bg-black overflow-hidden" />;
 });
 
