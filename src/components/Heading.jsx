@@ -42,7 +42,7 @@ const Heading = ({ onNavigate }) => {
         <div className="heading-anim-btn">
           {/* Added 'relative group pb-1' and the animated span below */}
           <a 
-            href="https://aerocon.vercel.app" 
+            href="https://aerocon26.aerosocbitm.in" 
             target="_blank" 
             rel="noopener noreferrer"
             className="aerocon-blink relative group bg-transparent border-none hover:text-accent font-sans font-medium text-sm tracking-widest uppercase transition-colors duration-300 cursor-pointer hover:drop-shadow-[0_0_10px_rgba(0,210,255,0.8)] inline-block pb-1"
@@ -88,7 +88,7 @@ const Heading = ({ onNavigate }) => {
         <div className="mt-8 flex justify-center w-full lg:hidden">
           {/* Added 'relative group pb-1' and the animated span below */}
           <a 
-            href="https://aerocon.vercel.app" 
+            href="https://aerocon26.aerosocbitm.in" 
             target="_blank" 
             rel="noopener noreferrer"
             className="aerocon-blink relative group bg-transparent border-none hover:text-accent font-sans font-medium text-xs tracking-widest uppercase transition-colors duration-300 cursor-pointer active:scale-95 inline-block pb-1"

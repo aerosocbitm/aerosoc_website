@@ -138,7 +138,7 @@ const UpcomingEvents = () => {
             {/* Wrapped the button and the new text in a flex-col container so they stack nicely */}
             <div className="aero-element relative z-10 mt-4 sm:mt-6 md:mt-8 lg:mt-6 opacity-0 flex flex-col items-center gap-3">
               <a 
-                href="https://aerocon.vercel.app" 
+                href="https://aerocon26.aerosocbitm.in" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="aerocon-blink relative group bg-transparent border-none hover:text-accent font-sans font-semibold text-sm sm:text-base md:text-xl lg:text-lg tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer active:scale-95 inline-block pb-1"
