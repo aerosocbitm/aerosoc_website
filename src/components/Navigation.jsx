@@ -85,7 +85,7 @@ const Navigation = ({ onGoHome, onNavigate }) => {
       >
         <div className="flex items-center gap-3 mb-10">
           <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center">
-            <img src="/aerosoc logo2.png" alt="AeroSoc Logo" className="w-full h-full object-cover" />
+            <img src="/aerosoclogo2.png" alt="AeroSoc Logo" className="w-full h-full object-cover" />
           </div>
           <span className="text-white font-display font-bold tracking-[0.2em] text-sm uppercase">
             AEROSOC
@@ -123,7 +123,7 @@ const Navigation = ({ onGoHome, onNavigate }) => {
               AEROSOC
             </span>
             <div className="w-12 h-12 overflow-hidden flex-shrink-0 flex items-center justify-center">
-              <img src="/aerosoc logo2.png" alt="AeroSoc Logo" className="w-full h-full object-cover opacity-100" />
+              <img src="/aerosoclogo2.png" alt="AeroSoc Logo" className="w-full h-full object-cover opacity-100" />
             </div>
           </div>
         </div>
