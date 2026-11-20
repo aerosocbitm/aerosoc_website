@@ -68,4 +68,4 @@ For 3D integrations, avoid instantiating multiple `THREE.WebGLRenderer` contexts
 
 ## Developers
 Anikait Sen Gupta, 
-Renikson Yash Ekka
+Renikson Yash
